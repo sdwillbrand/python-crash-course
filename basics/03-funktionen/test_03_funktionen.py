@@ -1,12 +1,12 @@
-"""Tests zu tag3_funktionen.py - Red-Green-Testing.
+"""Tests zu 03_funktionen.py - Red-Green-Testing.
 
-Rot vor deiner Loesung, gruen danach. Fuehre `pytest 00-tag3-funktionen/ -v`
+Rot vor deiner Loesung, gruen danach. Fuehre `pytest basics/03-funktionen/ -v`
 aus.
 """
 
 from importlib import import_module
 
-solution = import_module("tag3_funktionen")
+solution = import_module("03_funktionen")
 
 
 class TestLevel1Greet:

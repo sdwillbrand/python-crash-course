@@ -1,13 +1,13 @@
-"""Tests zu tag2_datenstrukturen_bedingungen.py - Red-Green-Testing.
+"""Tests zu 02_datenstrukturen_bedingungen.py - Red-Green-Testing.
 
 Rot vor deiner Loesung, gruen danach. Fuehre
-`pytest 00-tag2-datenstrukturen-bedingungen/ -v` aus.
+`pytest basics/02-datenstrukturen-bedingungen/ -v` aus.
 """
 
 import pytest
 from importlib import import_module
 
-solution = import_module("tag2_datenstrukturen_bedingungen")
+solution = import_module("02_datenstrukturen_bedingungen")
 
 
 class TestLevel1UniqueValues:

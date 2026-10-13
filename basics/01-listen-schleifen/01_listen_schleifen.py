@@ -1,7 +1,7 @@
 """Tag 1: Listen & Schleifen - Uebungsaufgaben.
 
 Fuelle die TODO-Abschnitte aus. Fuehre
-`pytest 00-tag1-listen-schleifen/ -v` aus, um dein Ergebnis zu pruefen.
+`pytest basics/01-listen-schleifen/ -v` aus, um dein Ergebnis zu pruefen.
 Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
 """
 

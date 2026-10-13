@@ -1,7 +1,7 @@
 """Tag 4: Built-in Functions & Lambdas - Uebungsaufgaben.
 
 Fuelle die TODO-Abschnitte aus. Fuehre
-`pytest 00-tag4-builtins-lambdas/ -v` aus, um dein Ergebnis zu pruefen.
+`pytest basics/04-builtins-lambdas/ -v` aus, um dein Ergebnis zu pruefen.
 Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
 """
 

@@ -1,13 +1,13 @@
-"""Tests zu tag4_builtins_lambdas.py - Red-Green-Testing.
+"""Tests zu 04_builtins_lambdas.py - Red-Green-Testing.
 
 Rot vor deiner Loesung, gruen danach. Fuehre
-`pytest 00-tag4-builtins-lambdas/ -v` aus.
+`pytest basics/04-builtins-lambdas/ -v` aus.
 """
 
 import pytest
 from importlib import import_module
 
-solution = import_module("tag4_builtins_lambdas")
+solution = import_module("04_builtins_lambdas")
 
 
 class TestLevel1FahrenheitValues:

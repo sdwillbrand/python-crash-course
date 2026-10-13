@@ -1,6 +1,6 @@
 """Tag 3: Funktionen - Uebungsaufgaben.
 
-Fuelle die TODO-Abschnitte aus. Fuehre `pytest 00-tag3-funktionen/ -v` aus,
+Fuelle die TODO-Abschnitte aus. Fuehre `pytest basics/03-funktionen/ -v` aus,
 um dein Ergebnis zu pruefen. Erklaerungen und Code-Beispiele: siehe
 README.md in diesem Ordner.
 """

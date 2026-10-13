@@ -28,10 +28,10 @@ Pandas-Code, dessen Fehler letztlich auf diesen Grundlagen beruhen).
 
 | Tag | Thema | Praxisfokus | Status |
 |---|---|---|---|
-| [1](basics/00-tag1-listen-schleifen/README.md) | Rückblick: Listen & Schleifen | Homogene/heterogene Listen, Schleifenkopf/-körper, Schleifenvariable ≠ Referenz | ✅ |
-| [2](basics/00-tag2-datenstrukturen-bedingungen/README.md) | Weitere Datenstrukturen & If-Statements | Tupel, Sets, `if/elif/else`, Truthiness | ✅ |
-| [3](basics/00-tag3-funktionen/README.md) | Funktionen | `def`, Default-Parameter, `return` vs. `print`, Scope | ✅ |
-| [4](basics/00-tag4-builtins-lambdas/README.md) | Built-in Functions & Lambdas | `zip`, `enumerate`, `sorted`, `map`/`filter`, `lambda` | ✅ |
+| [1](basics/01-listen-schleifen/README.md) | Rückblick: Listen & Schleifen | Homogene/heterogene Listen, Schleifenkopf/-körper, Schleifenvariable ≠ Referenz | ✅ |
+| [2](basics/02-datenstrukturen-bedingungen/README.md) | Weitere Datenstrukturen & If-Statements | Tupel, Sets, `if/elif/else`, Truthiness | ✅ |
+| [3](basics/03-funktionen/README.md) | Funktionen | `def`, Default-Parameter, `return` vs. `print`, Scope | ✅ |
+| [4](basics/04-builtins-lambdas/README.md) | Built-in Functions & Lambdas | `zip`, `enumerate`, `sorted`, `map`/`filter`, `lambda` | ✅ |
 
 Tag 1 greift direkt auf, was im Coaching an diesem Tag passiert ist (siehe
 [`basics/practice/temperature-converter.py`](basics/practice/temperature-converter.py))
@@ -53,12 +53,17 @@ Jedes Unterverzeichnis (in `basics/` ebenso wie in
 
 - `README.md` – Erklärung der Konzepte (das *Warum*), Code-Beispiele und
   eine "Code-Anatomie"-Sektion zu typischen Stolpersteinen.
-- `tagN_*.py` / `0X_*.py` – Übungsdatei mit `TODO`-Markern, abgestuft in
-  drei Levels (Basic → Refactoring/Debugging → Mini-Projekt).
-- `test_tagN_*.py` / `test_0X_*.py` – fertige `pytest`-Tests zu jeder
-  Aufgabe (Red-Green-Testing: erst rot, nach deiner Lösung grün).
+- `0X_*.py` – Übungsdatei mit `TODO`-Markern, abgestuft in drei Levels
+  (Basic → Refactoring/Debugging → Mini-Projekt).
+- `test_0X_*.py` – fertige `pytest`-Tests zu jeder Aufgabe (Red-Green-Testing:
+  erst rot, nach deiner Lösung grün).
 - `LOESUNG.md` – vollständige Referenzlösung mit didaktischen Anmerkungen
   (nicht vorher reinschauen – erst selbst versuchen!).
+
+Die Nummerierung (`01`–`04` in `basics/`, `01`–`05` in
+`data-engineering-preparedness/`) startet in jedem der beiden
+Verzeichnisse bei `01` – es handelt sich um zwei unabhängige Reihen, kein
+durchlaufendes Gesamtschema.
 
 ## Wie du die Übungen bearbeitest
 
@@ -66,7 +71,7 @@ Jedes Unterverzeichnis (in `basics/` ebenso wie in
 pip install -r requirements.txt
 
 # Tests für eine einzelne Einheit laufen lassen
-pytest basics/00-tag1-listen-schleifen/ -v
+pytest basics/01-listen-schleifen/ -v
 pytest data-engineering-preparedness/01-datenstrukturen-manipulation/ -v
 
 # Nur einen der beiden Bloecke laufen lassen

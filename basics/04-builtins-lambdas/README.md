@@ -116,8 +116,8 @@ richtige Wahl.
 
 ## Übungsaufgaben
 
-Datei: [`tag4_builtins_lambdas.py`](tag4_builtins_lambdas.py) · Tests:
-[`test_tag4_builtins_lambdas.py`](test_tag4_builtins_lambdas.py)
+Datei: [`04_builtins_lambdas.py`](04_builtins_lambdas.py) · Tests:
+[`test_04_builtins_lambdas.py`](test_04_builtins_lambdas.py)
 
 ### Level 1 (Basic)
 
@@ -138,6 +138,6 @@ Datei: [`tag4_builtins_lambdas.py`](tag4_builtins_lambdas.py) · Tests:
   `filter()` + `lambda`, `sorted()` + `lambda` (absteigend) und
   `enumerate()` zu einem nummerierten Report der wärmsten Städte.
 
-Führe `pytest 00-tag4-builtins-lambdas/ -v` aus, um dein Ergebnis zu
+Führe `pytest basics/04-builtins-lambdas/ -v` aus, um dein Ergebnis zu
 prüfen. Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) – erst selbst
 versuchen!

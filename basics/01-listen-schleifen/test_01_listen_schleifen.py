@@ -1,13 +1,13 @@
-"""Tests zu tag1_listen_schleifen.py - Red-Green-Testing.
+"""Tests zu 01_listen_schleifen.py - Red-Green-Testing.
 
 Rot vor deiner Loesung, gruen danach. Fuehre
-`pytest 00-tag1-listen-schleifen/ -v` aus.
+`pytest basics/01-listen-schleifen/ -v` aus.
 """
 
 import pytest
 from importlib import import_module
 
-solution = import_module("tag1_listen_schleifen")
+solution = import_module("01_listen_schleifen")
 
 
 class TestLevel1SumOfList:

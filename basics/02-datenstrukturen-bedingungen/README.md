@@ -110,8 +110,8 @@ ist – obwohl `0` ein völlig gültiger Kontostand sein kann! Meinst du
 
 ## Übungsaufgaben
 
-Datei: [`tag2_datenstrukturen_bedingungen.py`](tag2_datenstrukturen_bedingungen.py)
-· Tests: [`test_tag2_datenstrukturen_bedingungen.py`](test_tag2_datenstrukturen_bedingungen.py)
+Datei: [`02_datenstrukturen_bedingungen.py`](02_datenstrukturen_bedingungen.py)
+· Tests: [`test_02_datenstrukturen_bedingungen.py`](test_02_datenstrukturen_bedingungen.py)
 
 ### Level 1 (Basic)
 
@@ -131,6 +131,6 @@ Datei: [`tag2_datenstrukturen_bedingungen.py`](tag2_datenstrukturen_bedingungen.
   (`(stadt, temperatur)`), ein Dict (drei Kategorien) und eine
   `if`/`elif`/`else`-Kette.
 
-Führe `pytest 00-tag2-datenstrukturen-bedingungen/ -v` aus, um dein
+Führe `pytest basics/02-datenstrukturen-bedingungen/ -v` aus, um dein
 Ergebnis zu prüfen. Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) –
 erst selbst versuchen!

@@ -94,8 +94,8 @@ Willst du ein Ergebnis weiterverwenden, musst du es in einer Variable
 
 ## Übungsaufgaben
 
-Datei: [`tag1_listen_schleifen.py`](tag1_listen_schleifen.py) · Tests:
-[`test_tag1_listen_schleifen.py`](test_tag1_listen_schleifen.py)
+Datei: [`01_listen_schleifen.py`](01_listen_schleifen.py) · Tests:
+[`test_01_listen_schleifen.py`](test_01_listen_schleifen.py)
 
 ### Level 1 (Basic)
 
@@ -116,6 +116,6 @@ Datei: [`tag1_listen_schleifen.py`](tag1_listen_schleifen.py) · Tests:
   gleicher Länge über den Index gemeinsam durchlaufen und einen Report als
   Liste von Strings (`"Berlin: 10°C"`) zurückgeben.
 
-Führe `pytest 00-tag1-listen-schleifen/ -v` aus, um dein Ergebnis zu
+Führe `pytest basics/01-listen-schleifen/ -v` aus, um dein Ergebnis zu
 prüfen. Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) – erst selbst
 versuchen!

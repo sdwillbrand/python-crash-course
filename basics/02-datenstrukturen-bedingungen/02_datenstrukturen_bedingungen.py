@@ -1,7 +1,7 @@
 """Tag 2: Weitere Datenstrukturen & If-Statements - Uebungsaufgaben.
 
 Fuelle die TODO-Abschnitte aus. Fuehre
-`pytest 00-tag2-datenstrukturen-bedingungen/ -v` aus, um dein Ergebnis zu
+`pytest basics/02-datenstrukturen-bedingungen/ -v` aus, um dein Ergebnis zu
 pruefen. Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
 """
 

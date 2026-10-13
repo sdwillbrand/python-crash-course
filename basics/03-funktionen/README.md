@@ -114,8 +114,8 @@ mutieren.
 
 ## Übungsaufgaben
 
-Datei: [`tag3_funktionen.py`](tag3_funktionen.py) · Tests:
-[`test_tag3_funktionen.py`](test_tag3_funktionen.py)
+Datei: [`03_funktionen.py`](03_funktionen.py) · Tests:
+[`test_03_funktionen.py`](test_03_funktionen.py)
 
 ### Level 1 (Basic)
 
@@ -133,6 +133,6 @@ Datei: [`tag3_funktionen.py`](tag3_funktionen.py) · Tests:
 - `running_total(amounts, start_balance=0)`: Liste laufender Summen,
   beginnend bei `start_balance`.
 
-Führe `pytest 00-tag3-funktionen/ -v` aus, um dein Ergebnis zu prüfen.
+Führe `pytest basics/03-funktionen/ -v` aus, um dein Ergebnis zu prüfen.
 Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) – erst selbst
 versuchen!
