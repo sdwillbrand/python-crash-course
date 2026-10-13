@@ -25,6 +25,29 @@ class TestLevel1Record:
         assert str(record) == "Record #1: {'a': 1}"
 
 
+class TestLevel1Counter:
+    def test_starts_at_default_zero(self):
+        counter = solution.Counter()
+        assert counter.value == 0
+
+    def test_starts_at_custom_value(self):
+        counter = solution.Counter(start=10)
+        assert counter.value == 10
+
+    def test_increment_default_amount_returns_new_value(self):
+        counter = solution.Counter()
+        assert counter.increment() == 1
+        assert counter.increment() == 2
+
+    def test_increment_custom_amount(self):
+        counter = solution.Counter(start=5)
+        assert counter.increment(amount=3) == 8
+
+    def test_repr_format(self):
+        counter = solution.Counter(start=5)
+        assert repr(counter) == "Counter(value=5)"
+
+
 class TestLevel2EventCollector:
     def test_instances_do_not_share_collected_list(self):
         a = solution.EventCollector("a")
@@ -38,6 +61,18 @@ class TestLevel2EventCollector:
         collector.add("x")
         collector.add("y")
         assert collector.total() == 2
+
+
+class TestLevel2LoggingWorker:
+    def test_summary_after_logging_events(self):
+        worker = solution.LoggingWorker("Ana", 1)
+        worker.log("started")
+        worker.log("finished")
+        assert worker.summary() == "Ana (#1): 2 events"
+
+    def test_summary_with_no_events(self):
+        worker = solution.LoggingWorker("Bo", 2)
+        assert worker.summary() == "Bo (#2): 0 events"
 
 
 class TestLevel3BaseETL:

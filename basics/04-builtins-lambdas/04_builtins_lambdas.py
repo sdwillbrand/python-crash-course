@@ -46,6 +46,18 @@ def sorted_by_length(words: list) -> list:
     return sorted(words, lambda w: len(w))
 
 
+def doubled_values(numbers: list) -> list:
+    """Verdoppelt jeden Wert in `numbers`.
+
+    BUG: map() gibt in Python 3 einen ITERATOR zurueck, keine Liste - die
+    Funktion gibt aktuell das map-Objekt direkt zurueck statt der
+    tatsaechlichen Werte (siehe README, Code-Anatomie Stolperstein 1).
+
+    Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
+    """
+    return map(lambda n: n * 2, numbers)
+
+
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
@@ -64,6 +76,17 @@ def warm_cities_report(cities: list, temperatures: list) -> list:
 
     Wirf ValueError, wenn cities und temperatures unterschiedlich lang
     sind.
+    """
+    # TODO: implementieren
+    raise NotImplementedError
+
+
+def cities_sorted_by_name_length(cities: list) -> list:
+    """Dedupliziert `cities` und sortiert sie nach Namenslaenge, bei
+    gleicher Laenge alphabetisch.
+
+    Nutze set(...) zum Deduplizieren und sorted() mit einer lambda, die
+    ein Tupel (laenge, name) als Sortierschluessel zurueckgibt.
     """
     # TODO: implementieren
     raise NotImplementedError

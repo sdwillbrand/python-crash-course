@@ -30,6 +30,12 @@ def rewrite_products_report(input_path: Path, output_path: Path) -> None:
         writer.writeheader()
         for row in rows:
             writer.writerow({"name": row["name"], "price": row["price"]})
+
+
+def read_city_names(path: Path) -> list:
+    with open(path, encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        return [row["name"] for row in reader]
 ```
 
 ## Level 3
@@ -78,6 +84,16 @@ def process_products_csv(
                 valid_count += 1
 
     return {"valid": valid_count, "rejected": rejected_count}
+
+
+def append_to_csv_log(path: Path, entry: dict) -> None:
+    ensure_parent_dir(path)
+    file_exists = path.exists()
+    with open(path, "a", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["timestamp", "level", "message"])
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow(entry)
 ```
 
 ## Didaktische Anmerkungen
@@ -101,3 +117,14 @@ def process_products_csv(
   da `valid_output_path` und `rejected_output_path` in unterschiedlichen
   Verzeichnissen liegen könnten – `exist_ok=True` macht den zweiten Aufruf
   für ein bereits angelegtes gemeinsames Elternverzeichnis unschädlich.
+- `read_city_names` nutzt `row["name"]` (Dict-Zugriff über den
+  Spaltennamen) statt `row[0]` (Listen-Zugriff über die Position) – das
+  ist nicht nur der Bugfix, sondern auch robuster: Würde die CSV-Datei
+  ihre Spaltenreihenfolge ändern (`price,name` statt `name,price`), bliebe
+  `row["name"]` trotzdem korrekt, während `row[0]` plötzlich den Preis
+  läse.
+- `append_to_csv_log` prüft `path.exists()` **vor** dem Öffnen im
+  Anhänge-Modus (`"a"`) – danach existiert die Datei ja immer (Python legt
+  sie beim Öffnen mit `"a"` automatisch an, falls nötig), die Prüfung
+  müsste also vorher passieren, um zwischen "erster Aufruf" und
+  "wiederholter Aufruf" zu unterscheiden.

@@ -54,6 +54,17 @@ def active_user_names(users: list[dict]) -> list[str]:
     return result
 
 
+def id_to_name_lookup(users: list[dict]) -> dict:
+    """Baut ein Lookup-Dict: User-ID -> Name.
+
+    BUG: Sowohl Key als auch Value werden faelschlich aus demselben Feld
+    ("id") gebaut - der Name geht dabei verloren.
+
+    Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
+    """
+    return {user["id"]: user["id"] for user in users}
+
+
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
@@ -82,4 +93,29 @@ def clean_records(records: list[dict]) -> tuple[list[dict], list[dict]]:
     """
     # TODO: Implementiere mit einer Schleife oder Comprehensions.
     # Denk an .copy(), um die Original-Dicts nicht zu mutieren!
+    raise NotImplementedError
+
+
+def merge_records_by_id(records: list[dict], updates: list[dict]) -> list[dict]:
+    """Wendet Teil-Updates auf Records an, gematcht per "id".
+
+    `records` ist eine Liste vollstaendiger Records (z.B. {"id": 1,
+    "name": "Ana", "status": "active"}). `updates` ist eine Liste
+    PARTIELLER Dicts, die zusaetzlich zu "id" nur die zu aendernden Felder
+    enthalten (z.B. {"id": 1, "status": "inactive"}).
+
+    Gib eine NEUE Liste zurueck, in der jedes Record, zu dem ein Update mit
+    passender "id" existiert, mit den Update-Feldern ueberschrieben ist
+    (Update-Werte gewinnen, andere Felder bleiben erhalten). Records ohne
+    passendes Update bleiben unveraendert. Weder `records` noch `updates`
+    noch deren Dicts duerfen mutiert werden.
+
+    Beispiel:
+        merge_records_by_id(
+            [{"id": 1, "name": "Ana", "status": "active"}],
+            [{"id": 1, "status": "inactive"}],
+        )
+        -> [{"id": 1, "name": "Ana", "status": "inactive"}]
+    """
+    # TODO: implementieren
     raise NotImplementedError

@@ -142,6 +142,9 @@ Datei: [`01_data_structures.py`](01_data_structures.py) · Tests:
   Übungsdatei) – einen `KeyError`-Auslöser und eine versehentliche Mutation
   der Eingabedaten. Finde und behebe beide, ohne die Funktionssignatur zu
   ändern.
+- `id_to_name_lookup(users)`: enthält einen Copy-Paste-Bug in einer Dict
+  Comprehension (Key und Value nutzen dasselbe Feld). Finde und behebe
+  ihn.
 
 ### Level 3 (Mini-Projekt)
 
@@ -149,6 +152,9 @@ Datei: [`01_data_structures.py`](01_data_structures.py) · Tests:
   ungültige Datensätze (fehlende Pflichtfelder, ungültige E-Mail) – die
   Grundidee von "Rejected Rows", die in Modul 3 vertieft wird. Die
   Originaldaten dürfen dabei nicht verändert werden.
+- `merge_records_by_id(records, updates)`: wendet partielle Updates
+  (CDC-artig) auf Records an, gematcht per `id` – ohne die Originaldaten zu
+  verändern. Ein erster Vorgeschmack auf Modul 5.
 
 Führe `pytest 01-datenstrukturen-manipulation/ -v` aus, um dein Ergebnis zu
 prüfen. Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) – erst selbst

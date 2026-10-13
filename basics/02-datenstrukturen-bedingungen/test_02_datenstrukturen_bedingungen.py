@@ -54,6 +54,17 @@ class TestLevel2ClassifyTemperatures:
         assert result == {"kalt": [5], "mild": [15], "warm": [25]}
 
 
+class TestLevel2UniquePreserveFirstSeen:
+    def test_removes_duplicates_preserving_first_occurrence_order(self):
+        assert solution.unique_preserve_first_seen([3, 1, 2, 1, 3]) == [3, 1, 2]
+
+    def test_empty_list_returns_empty_list(self):
+        assert solution.unique_preserve_first_seen([]) == []
+
+    def test_already_unique_list_stays_unchanged(self):
+        assert solution.unique_preserve_first_seen(["a", "b"]) == ["a", "b"]
+
+
 class TestLevel3GroupCitiesByTemperature:
     def test_groups_tuples_by_category(self):
         cities = ["Kiel", "Hamburg", "Dubai"]
@@ -72,3 +83,23 @@ class TestLevel3GroupCitiesByTemperature:
     def test_mismatched_lengths_raise_value_error(self):
         with pytest.raises(ValueError):
             solution.group_cities_by_temperature(["Berlin"], [10, 20])
+
+
+class TestLevel3TemperatureExtremes:
+    def test_finds_warmest_and_coldest(self):
+        cities = ["Kiel", "Berlin", "Dubai"]
+        temperatures = [5, 15, 35]
+        result = solution.temperature_extremes(cities, temperatures)
+        assert result == (("Dubai", 35), ("Kiel", 5))
+
+    def test_single_city_is_both_warmest_and_coldest(self):
+        result = solution.temperature_extremes(["Kiel"], [5])
+        assert result == (("Kiel", 5), ("Kiel", 5))
+
+    def test_empty_lists_raise_value_error(self):
+        with pytest.raises(ValueError):
+            solution.temperature_extremes([], [])
+
+    def test_mismatched_lengths_raise_value_error(self):
+        with pytest.raises(ValueError):
+            solution.temperature_extremes(["Berlin"], [10, 20])

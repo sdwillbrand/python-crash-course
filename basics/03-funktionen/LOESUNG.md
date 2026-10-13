@@ -22,6 +22,15 @@ def add_tag(record: dict, tags=None):
     tags.append("processed")
     record["tags"] = tags
     return record
+
+
+total_processed = 0
+
+
+def mark_processed(count: int) -> int:
+    global total_processed
+    total_processed += count
+    return total_processed
 ```
 
 ## Level 3
@@ -34,6 +43,15 @@ def running_total(amounts: list, start_balance: float = 0) -> list:
         balance += amount
         totals.append(balance)
     return totals
+
+
+def apply_discount(prices: list, discount_percent: float = 10) -> list:
+    if discount_percent < 0 or discount_percent > 100:
+        raise ValueError("discount_percent must be between 0 and 100")
+    result = []
+    for price in prices:
+        result.append(price * (1 - discount_percent / 100))
+    return result
 ```
 
 ## Didaktische Anmerkungen
@@ -53,3 +71,13 @@ def running_total(amounts: list, start_balance: float = 0) -> list:
   **in place** – das ist in Ordnung, weil es sich um eine neu erzeugte
   Liste innerhalb dieses Funktionsaufrufs handelt, nicht um geteilten
   Zustand zwischen Aufrufen.
+- `mark_processed` braucht `global total_processed` als erste Zeile, weil
+  `total_processed += count` sonst dazu führt, dass Python
+  `total_processed` als lokale Variable interpretiert – und lokale
+  Variablen lesen, bevor ihnen ein Wert zugewiesen wurde, ist genau der
+  `UnboundLocalError` aus dem README. Beachte: Diese Funktion ist bewusst
+  ein Gegenbeispiel – in der Praxis ist `running_total` (reiner
+  Parameter/Rückgabewert, kein globaler Zustand) der bevorzugte Stil.
+- `apply_discount` validiert `discount_percent` **vor** der Schleife –
+  schlägt die Validierung fehl, wird gar nicht erst mit der
+  (möglicherweise aufwendigeren) Verarbeitung begonnen.

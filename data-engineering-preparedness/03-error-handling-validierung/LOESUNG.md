@@ -35,6 +35,13 @@ def parse_price(value):
     if not math.isfinite(price):
         return None
     return price
+
+
+def safe_divide(a: float, b: float) -> float | None:
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return None
 ```
 
 ## Level 3
@@ -122,3 +129,10 @@ def process_batch(records: list[dict]) -> tuple[list[dict], list[dict]]:
   die Pipeline bricht sichtbar ab, statt den Bug stillschweigend als
   "ungültiges Record" zu behandeln (vgl. Code-Anatomie, Stolperstein 1 im
   README).
+- `safe_divide` fängt **ausschließlich** `ZeroDivisionError` ab – ein
+  `TypeError` (z. B. `safe_divide(10, "a")`) wird bewusst **nicht**
+  abgefangen und propagiert normal nach oben. Das ist derselbe Grundsatz
+  wie bei `parse_price` (spezifische Exception-Typen statt eines breiten
+  `except Exception:`), nur diesmal mit zwei unterschiedlichen
+  Fehlerarten, die eine Funktion auslösen kann – nur eine davon ist
+  "erwartet" und soll behandelt werden.

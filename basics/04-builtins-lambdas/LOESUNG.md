@@ -22,6 +22,10 @@ def paired_report(cities: list, temperatures: list) -> list:
 ```python
 def sorted_by_length(words: list) -> list:
     return sorted(words, key=lambda w: len(w))
+
+
+def doubled_values(numbers: list) -> list:
+    return list(map(lambda n: n * 2, numbers))
 ```
 
 ## Level 3
@@ -39,6 +43,10 @@ def warm_cities_report(cities: list, temperatures: list) -> list:
     for i, (city, temp) in enumerate(sorted_pairs, start=1):
         report.append(f"{i}. {city}: {temp}°C")
     return report
+
+
+def cities_sorted_by_name_length(cities: list) -> list:
+    return sorted(set(cities), key=lambda name: (len(name), name))
 ```
 
 ## Didaktische Anmerkungen
@@ -59,7 +67,15 @@ def warm_cities_report(cities: list, temperatures: list) -> list:
   `warm_cities_report` als
   `[f"{i}. {city}: {temp}°C" for i, (city, temp) in enumerate(sorted_pairs, start=1)]`
   schreiben – inhaltlich identisch, nur kompakter.
-- `list(map(...))` in `fahrenheit_values` ist notwendig, weil `map()` in
-  Python 3 einen **Iterator** liefert (siehe README, Stolperstein 1) –
-  ohne `list(...)` bekämst du beim Vergleich mit einer erwarteten Liste in
-  den Tests ein `<map object at ...>` statt der tatsächlichen Werte.
+- `list(map(...))` in `fahrenheit_values` und `doubled_values` ist
+  notwendig, weil `map()` in Python 3 einen **Iterator** liefert (siehe
+  README, Stolperstein 1) – ohne `list(...)` bekämst du beim Vergleich mit
+  einer erwarteten Liste in den Tests ein `<map object at ...>` statt der
+  tatsächlichen Werte.
+- `cities_sorted_by_name_length` sortiert nach dem Tupel `(len(name),
+  name)` – Python vergleicht Tupel elementweise: Erst wird nach der Länge
+  sortiert, und nur bei **gleicher** Länge entscheidet das zweite
+  Tupel-Element (der Name alphabetisch). `set(cities)` dedupliziert
+  vorher; dass ein Set keine Reihenfolge garantiert, ist hier unerheblich,
+  weil `sorted()` die Reihenfolge danach ohnehin vollständig über den
+  `key` neu festlegt.

@@ -76,6 +76,29 @@ def process_new_events(events: list[dict], state: dict) -> dict:
     return {"processed": processed, "failed": failed}
 
 
+def latest_event(events: list[dict]) -> dict:
+    """Gibt das Event mit dem zeitlich spaetesten Zeitpunkt zurueck.
+
+    events ist eine Liste von Dicts mit den Keys "id" und "timestamp"
+    (ISO-8601-Strings MIT Zeitzonen-Offset, z.B.
+    "2024-01-05T09:00:00+01:00").
+
+    BUG: Vergleicht die Timestamp-STRINGS direkt (sorted(events, key=lambda
+    e: e["timestamp"])) statt sie zu parsen. Das schlaegt bei
+    unterschiedlichen Zeitzonen-Offsets fehl: "...+01:00" ist als STRING
+    kleiner als "...+02:00" (die Ziffer "1" < "2"), aber ZEITLICH liegt ein
+    Zeitpunkt mit "+02:00"-Offset bei gleicher Uhrzeit tatsaechlich FRUEHER
+    (in UTC) als einer mit "+01:00" - ein groesserer Offset bedeutet eine
+    kleinere UTC-Zeit bei gleicher lokaler Uhrzeit (siehe README,
+    Stolperstein 2).
+
+    Finde und behebe den Bug (parse mit datetime.fromisoformat - das
+    beruecksichtigt Zeitzonen-Offsets automatisch korrekt beim
+    Vergleichen), ohne die Funktionssignatur zu aendern.
+    """
+    return sorted(events, key=lambda e: e["timestamp"])[-1]
+
+
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------

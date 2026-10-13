@@ -32,6 +32,27 @@ class Record:
         raise NotImplementedError
 
 
+class Counter:
+    """Einfacher Zaehler mit Instanzzustand.
+
+    TODO:
+      - __init__(self, start: int = 0): speichere self.value = start.
+      - increment(self, amount: int = 1) -> int: erhoehe self.value um
+        amount und gib den NEUEN Wert zurueck.
+      - __repr__(self) -> str: "Counter(value=5)" (dynamisch mit dem
+        aktuellen self.value, nutze !r NICHT fuer eine Zahl).
+    """
+
+    def __init__(self, start: int = 0):
+        raise NotImplementedError
+
+    def increment(self, amount: int = 1) -> int:
+        raise NotImplementedError
+
+    def __repr__(self) -> str:
+        raise NotImplementedError
+
+
 # ---------------------------------------------------------------------------
 # Level 2 (Refactoring / Debugging)
 # ---------------------------------------------------------------------------
@@ -59,6 +80,35 @@ class EventCollector:
 
     def total(self):
         return len(EventCollector.collected)
+
+
+class Base:
+    """Basisklasse, die Name und Event-Log initialisiert."""
+
+    def __init__(self, name: str):
+        self.name = name
+        self.events: list = []
+
+    def log(self, event: str) -> None:
+        self.events.append(event)
+
+
+class LoggingWorker(Base):
+    """Worker, der Events protokolliert und eine Zusammenfassung ausgibt.
+
+    BUG: __init__ ueberschreibt Base.__init__, ruft aber super().__init__()
+    NIE auf - self.name und self.events werden dadurch nie gesetzt. Der
+    erste Aufruf von log() oder summary() wirft AttributeError.
+
+    Finde und behebe den Bug (siehe README, Stolperstein 2), ohne die
+    Methodensignaturen zu aendern.
+    """
+
+    def __init__(self, name: str, worker_id: int):
+        self.worker_id = worker_id
+
+    def summary(self) -> str:
+        return f"{self.name} (#{self.worker_id}): {len(self.events)} events"
 
 
 # ---------------------------------------------------------------------------

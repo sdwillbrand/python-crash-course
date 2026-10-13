@@ -32,6 +32,16 @@ def classify_temperatures(temperatures: list) -> dict:
         else:
             result["warm"].append(temp)
     return result
+
+
+def unique_preserve_first_seen(items: list) -> list:
+    seen = set()
+    result = []
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
 ```
 
 ## Level 3
@@ -51,6 +61,20 @@ def group_cities_by_temperature(cities: list, temperatures: list) -> dict:
         else:
             result["warm"].append(pair)
     return result
+
+
+def temperature_extremes(cities: list, temperatures: list) -> tuple:
+    if len(cities) != len(temperatures) or len(cities) == 0:
+        raise ValueError("cities and temperatures must be non-empty and the same length")
+    warmest = (cities[0], temperatures[0])
+    coldest = (cities[0], temperatures[0])
+    for i in range(1, len(cities)):
+        pair = (cities[i], temperatures[i])
+        if temperatures[i] > warmest[1]:
+            warmest = pair
+        if temperatures[i] < coldest[1]:
+            coldest = pair
+    return (warmest, coldest)
 ```
 
 ## Didaktische Anmerkungen
@@ -69,3 +93,12 @@ def group_cities_by_temperature(cities: list, temperatures: list) -> dict:
 - `unique_values` nutzt direkt `set(items)` – der eingebaute `set(...)`-
   Konstruktor akzeptiert jede iterierbare Sammlung (auch Listen) und
   entfernt Duplikate automatisch, ganz ohne eigene Schleife.
+- `unique_preserve_first_seen` braucht trotzdem eine eigene Schleife (statt
+  `set(items)`), weil ein Set selbst keine Reihenfolge garantiert – die
+  Original-Reihenfolge lässt sich nur bewahren, indem man explizit in
+  einer separaten Liste sammelt, während das Set nur zur schnellen
+  "schon gesehen?"-Prüfung dient.
+- `temperature_extremes` initialisiert `warmest`/`coldest` bewusst mit dem
+  **ersten** Element (`cities[0]`, `temperatures[0]`) statt mit einem
+  beliebigen Startwert wie `0` – so funktioniert der Vergleich auch bei
+  ausschließlich negativen Temperaturen korrekt.

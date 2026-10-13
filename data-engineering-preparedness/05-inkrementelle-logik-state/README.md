@@ -157,6 +157,8 @@ Datei: [`05_incremental_state.py`](05_incremental_state.py) · Tests:
 - `process_new_events(events, state)`: enthält **zwei** Bugs (Off-by-One
   beim Cursor-Vergleich, Cursor-Update vor statt nach erfolgreicher
   Verarbeitung). Finde und behebe beide.
+- `latest_event(events)`: enthält den String-statt-`datetime`-Vergleich-Bug
+  – sichtbar bei unterschiedlichen Zeitzonen-Offsets. Finde und behebe ihn.
 
 ### Level 3 (Mini-Projekt)
 

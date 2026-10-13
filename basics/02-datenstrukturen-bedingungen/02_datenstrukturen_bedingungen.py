@@ -59,6 +59,26 @@ def classify_temperatures(temperatures: list) -> dict:
     return result
 
 
+def unique_preserve_first_seen(items: list) -> list:
+    """Gibt `items` ohne Duplikate zurueck - Reihenfolge des ERSTEN
+    Auftretens bleibt erhalten (anders als unique_values() aus Level 1,
+    das ein Set nutzt und damit jede Ordnung verliert).
+
+    BUG: `seen = {}` erzeugt ein leeres DICT, kein leeres Set - `.add()`
+    existiert auf einem Dict nicht (AttributeError), siehe README,
+    Code-Anatomie Stolperstein 1.
+
+    Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
+    """
+    seen = {}
+    result = []
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
+
+
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
@@ -76,6 +96,20 @@ def group_cities_by_temperature(cities: list, temperatures: list) -> dict:
     Gibt zurueck: {"kalt": [(stadt, temp), ...], "mild": [...], "warm": [...]}
 
     Wirf ValueError, wenn cities und temperatures unterschiedlich lang sind.
+    """
+    # TODO: implementieren
+    raise NotImplementedError
+
+
+def temperature_extremes(cities: list, temperatures: list) -> tuple:
+    """Findet die waermste und die kaelteste Stadt.
+
+    Nutze eine Schleife mit if/elif, um das waermste und das kaelteste
+    (stadt, temperatur)-Tupel zu finden (noch nicht min()/max() - das ist
+    Thema von Einheit 4). Gib ein Tupel (waermste, kaelteste) zurueck,
+    wobei beide Elemente selbst (stadt, temperatur)-Tupel sind.
+
+    Wirf ValueError bei leeren oder unterschiedlich langen Listen.
     """
     # TODO: implementieren
     raise NotImplementedError

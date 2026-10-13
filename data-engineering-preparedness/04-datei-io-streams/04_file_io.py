@@ -63,6 +63,22 @@ def rewrite_products_report(input_path: Path, output_path: Path) -> None:
             writer.writerow({"name": row["name"], "price": row["price"]})
 
 
+def read_city_names(path: Path) -> list:
+    """Liest nur die "name"-Spalte aus einer CSV-Datei mit Spalten
+    "name,price".
+
+    BUG: Nutzt csv.reader (liefert jede Zeile als LISTE von Strings,
+    inklusive der Kopfzeile als erste Zeile) statt csv.DictReader. Dadurch
+    landet faelschlich die Kopfzeile selbst mit in der Rueckgabe.
+
+    Finde und behebe den Bug (nutze csv.DictReader), ohne die
+    Funktionssignatur zu aendern.
+    """
+    with open(path, encoding="utf-8", newline="") as f:
+        reader = csv.reader(f)
+        return [row[0] for row in reader]
+
+
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
@@ -93,6 +109,24 @@ def process_products_csv(
 
     Gib {"valid": <anzahl gueltige Zeilen>, "rejected": <anzahl ungueltige
     Zeilen>} zurueck.
+    """
+    # TODO: implementieren
+    raise NotImplementedError
+
+
+def append_to_csv_log(path: Path, entry: dict) -> None:
+    """Haengt einen einzelnen Eintrag an eine CSV-Logdatei an.
+
+    Spalten: ["timestamp", "level", "message"] (entry enthaelt genau
+    diese drei Keys).
+
+    - Existiert `path` noch NICHT, muss zuerst die Kopfzeile geschrieben
+      werden.
+    - Existiert `path` bereits, wird NUR die neue Zeile angehaengt (Modus
+      "a"), OHNE die Kopfzeile erneut zu schreiben und OHNE den
+      bestehenden Inhalt zu verlieren.
+    - Lege ein fehlendes Elternverzeichnis bei Bedarf an.
+    - encoding="utf-8", newline="".
     """
     # TODO: implementieren
     raise NotImplementedError

@@ -74,6 +74,26 @@ def parse_price(value):
     return price
 
 
+def safe_divide(a: float, b: float) -> float | None:
+    """Gibt a / b zurueck, oder None bei ZeroDivisionError.
+
+    BUG: Der except-Block faengt zwar ZeroDivisionError ab, aber durch
+    `except Exception:` wird auch ein TypeError (z.B. wenn b ein String
+    statt einer Zahl ist) stillschweigend verschluckt und liefert
+    ebenfalls None - das verdeckt einen echten Programmierfehler (falscher
+    Typ wurde uebergeben), der eigentlich sichtbar auffallen sollte.
+
+    Fange NUR ZeroDivisionError ab - ein TypeError soll weiterhin
+    durchgereicht werden (nicht abgefangen).
+
+    Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
+    """
+    try:
+        return a / b
+    except Exception:
+        return None
+
+
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------

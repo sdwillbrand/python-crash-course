@@ -44,6 +44,26 @@ def add_tag(record: dict, tags=[]):
     return record
 
 
+total_processed = 0
+
+
+def mark_processed(count: int) -> int:
+    """Erhoeht die globale Variable total_processed um `count` und gibt
+    den NEUEN Gesamtwert zurueck.
+
+    BUG: `total_processed += count` wird IRGENDWO in der Funktion
+    zugewiesen - dadurch behandelt Python `total_processed` fuer die
+    GESAMTE Funktion als lokale Variable, auch in der Zeile, in der sie
+    zuerst gelesen wird. Das wirft UnboundLocalError (siehe README,
+    Stolperstein 3).
+
+    Finde und behebe den Bug mit dem `global`-Schluesselwort, ohne die
+    Funktionssignatur zu aendern.
+    """
+    total_processed += count
+    return total_processed
+
+
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
@@ -54,6 +74,19 @@ def running_total(amounts: list, start_balance: float = 0) -> list:
     Beispiel:
         running_total([10, 20, 30]) -> [10, 30, 60]
         running_total([10, 20, 30], start_balance=5) -> [15, 35, 65]
+    """
+    # TODO: implementieren
+    raise NotImplementedError
+
+
+def apply_discount(prices: list, discount_percent: float = 10) -> list:
+    """Gibt eine NEUE Liste mit rabattierten Preisen zurueck.
+
+    Jeder Preis wird um discount_percent Prozent reduziert, z.B. bei
+    discount_percent=10 wird aus 100 der Wert 90.0.
+
+    Wirf ValueError, wenn discount_percent nicht zwischen 0 und 100
+    (jeweils inklusive) liegt.
     """
     # TODO: implementieren
     raise NotImplementedError

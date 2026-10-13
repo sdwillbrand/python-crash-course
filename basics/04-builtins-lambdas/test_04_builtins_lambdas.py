@@ -51,6 +51,17 @@ class TestLevel2SortedByLength:
         assert words == ["Banane", "Ei"]
 
 
+class TestLevel2DoubledValues:
+    def test_doubles_each_value(self):
+        assert solution.doubled_values([1, 2, 3]) == [2, 4, 6]
+
+    def test_empty_list_returns_empty_list(self):
+        assert solution.doubled_values([]) == []
+
+    def test_returns_a_list_not_a_map_object(self):
+        assert isinstance(solution.doubled_values([1]), list)
+
+
 class TestLevel3WarmCitiesReport:
     def test_filters_and_sorts_descending_with_numbering(self):
         cities = ["Kiel", "Berlin", "Dubai", "Bremen"]
@@ -65,3 +76,17 @@ class TestLevel3WarmCitiesReport:
     def test_mismatched_lengths_raise_value_error(self):
         with pytest.raises(ValueError):
             solution.warm_cities_report(["Berlin"], [10, 20])
+
+
+class TestLevel3CitiesSortedByNameLength:
+    def test_dedupes_and_sorts_by_length_then_alphabetically(self):
+        cities = ["Bonn", "Ulm", "Kiel", "Ulm", "Bremen"]
+        assert solution.cities_sorted_by_name_length(cities) == [
+            "Ulm",
+            "Bonn",
+            "Kiel",
+            "Bremen",
+        ]
+
+    def test_empty_list_returns_empty_list(self):
+        assert solution.cities_sorted_by_name_length([]) == []

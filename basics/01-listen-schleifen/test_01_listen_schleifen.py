@@ -48,6 +48,17 @@ class TestLevel2IncreaseTemperatures:
         assert solution.increase_temperatures([]) == []
 
 
+class TestLevel2DropShortNames:
+    def test_keeps_only_names_with_at_least_three_characters(self):
+        assert solution.drop_short_names(["Al", "Bo", "Eva", "Jo"]) == ["Eva"]
+
+    def test_no_short_names_keeps_everything(self):
+        assert solution.drop_short_names(["Ana", "Bremen"]) == ["Ana", "Bremen"]
+
+    def test_empty_list_returns_empty_list(self):
+        assert solution.drop_short_names([]) == []
+
+
 class TestLevel3TemperatureReport:
     def test_builds_one_line_per_city(self):
         cities = ["Berlin", "Hamburg"]
@@ -63,3 +74,23 @@ class TestLevel3TemperatureReport:
     def test_mismatched_lengths_raise_value_error(self):
         with pytest.raises(ValueError):
             solution.temperature_report(["Berlin"], [10, 12])
+
+
+class TestLevel3CitiesAboveAverage:
+    def test_returns_only_cities_strictly_above_average(self):
+        cities = ["Kiel", "Berlin", "Dubai"]
+        temperatures = [5, 15, 25]
+        assert solution.cities_above_average(cities, temperatures) == ["Dubai"]
+
+    def test_city_exactly_at_average_is_not_included(self):
+        cities = ["Kiel", "Dubai"]
+        temperatures = [10, 20]
+        assert solution.cities_above_average(cities, temperatures) == ["Dubai"]
+
+    def test_empty_lists_raise_value_error(self):
+        with pytest.raises(ValueError):
+            solution.cities_above_average([], [])
+
+    def test_mismatched_lengths_raise_value_error(self):
+        with pytest.raises(ValueError):
+            solution.cities_above_average(["Berlin"], [10, 20])

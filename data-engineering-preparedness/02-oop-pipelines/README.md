@@ -207,12 +207,16 @@ Datei: [`02_oop_pipelines.py`](02_oop_pipelines.py) · Tests:
 
 - `Record`: Klasse mit `__init__(record_id, payload)`, `__repr__` und
   `__str__` nach dem oben gezeigten Muster.
+- `Counter`: einfacher Zähler mit Instanzzustand, `increment()`-Methode
+  und `__repr__`.
 
 ### Level 2 (Refactoring/Debugging)
 
 - `EventCollector`: enthält **zwei** Bugs rund um Klassen- vs.
   Instanzattribute (siehe Docstring in der Übungsdatei). Finde und behebe
   beide.
+- `LoggingWorker(Base)`: enthält den vergessenen-`super().__init__()`-Bug.
+  Finde und behebe ihn.
 
 ### Level 3 (Mini-Projekt)
 

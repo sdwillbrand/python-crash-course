@@ -31,6 +31,10 @@ def process_new_events(events: list[dict], state: dict) -> dict:
             else:
                 failed.append(event)
     return {"processed": processed, "failed": failed}
+
+
+def latest_event(events: list[dict]) -> dict:
+    return sorted(events, key=lambda e: datetime.fromisoformat(e["timestamp"]))[-1]
 ```
 
 ## Level 3
@@ -104,3 +108,10 @@ def run_incremental_batch(events: list[dict], state_store: CdcStateStore) -> dic
   Zeilenumbrüche – für eine reine Zustandsdatei mit einem Feld völlig
   ausreichend; für von Menschen zu lesende Konfigurationsdateien wäre
   `indent=2` lesbarer.
+- `latest_event` zeigt, dass das String-vs-`datetime`-Problem nicht nur
+  bei fehlendem Nullpadding auftritt, sondern auch bei **Zeitzonen-Offsets**:
+  `datetime.fromisoformat(...)` erzeugt timezone-aware `datetime`-Objekte,
+  die beim Vergleich (`>`) automatisch auf eine gemeinsame Zeitbasis (UTC)
+  normalisiert werden – ein reiner String-Vergleich kann das naturgemäß
+  nicht leisten, weil er die Bedeutung der Offset-Ziffern nicht kennt.
+

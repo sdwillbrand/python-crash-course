@@ -47,6 +47,15 @@ class TestLevel2ActiveUserNames:
         assert "checked" not in users[0]
 
 
+class TestLevel2IdToNameLookup:
+    def test_builds_id_to_name_mapping(self):
+        users = [{"id": 1, "name": "Ana"}, {"id": 2, "name": "Bo"}]
+        assert solution.id_to_name_lookup(users) == {1: "Ana", 2: "Bo"}
+
+    def test_empty_list_returns_empty_dict(self):
+        assert solution.id_to_name_lookup([]) == {}
+
+
 class TestLevel3CleanRecords:
     def test_valid_records_pass_through_unchanged(self):
         records = [{"id": 1, "name": "Ana", "email": "ana@example.de"}]
@@ -89,3 +98,37 @@ class TestLevel3CleanRecords:
         records = [{"id": 1, "name": "Ana"}]
         valid, rejected = solution.clean_records(records)
         assert rejected[0] is not records[0]
+
+
+class TestLevel3MergeRecordsById:
+    def test_applies_matching_update(self):
+        records = [{"id": 1, "name": "Ana", "status": "active"}]
+        updates = [{"id": 1, "status": "inactive"}]
+        result = solution.merge_records_by_id(records, updates)
+        assert result == [{"id": 1, "name": "Ana", "status": "inactive"}]
+
+    def test_record_without_matching_update_stays_unchanged(self):
+        records = [{"id": 1, "name": "Ana", "status": "active"}]
+        result = solution.merge_records_by_id(records, [])
+        assert result == records
+
+    def test_does_not_mutate_inputs(self):
+        records = [{"id": 1, "name": "Ana", "status": "active"}]
+        updates = [{"id": 1, "status": "inactive"}]
+        records_snapshot = [dict(r) for r in records]
+        updates_snapshot = [dict(u) for u in updates]
+        solution.merge_records_by_id(records, updates)
+        assert records == records_snapshot
+        assert updates == updates_snapshot
+
+    def test_multiple_records_only_matching_ones_updated(self):
+        records = [
+            {"id": 1, "name": "Ana", "status": "active"},
+            {"id": 2, "name": "Bo", "status": "active"},
+        ]
+        updates = [{"id": 2, "status": "inactive"}]
+        result = solution.merge_records_by_id(records, updates)
+        assert result == [
+            {"id": 1, "name": "Ana", "status": "active"},
+            {"id": 2, "name": "Bo", "status": "inactive"},
+        ]

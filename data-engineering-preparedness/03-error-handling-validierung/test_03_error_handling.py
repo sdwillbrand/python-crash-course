@@ -75,6 +75,18 @@ class TestLevel2ParsePrice:
         assert solution.parse_price(None) is None
 
 
+class TestLevel2SafeDivide:
+    def test_valid_division(self):
+        assert solution.safe_divide(10, 2) == 5
+
+    def test_zero_division_returns_none(self):
+        assert solution.safe_divide(10, 0) is None
+
+    def test_type_error_is_not_swallowed(self):
+        with pytest.raises(TypeError):
+            solution.safe_divide(10, "a")
+
+
 class TestLevel3Exceptions:
     def test_missing_field_error_stores_field_and_message(self):
         exc = solution.MissingFieldError("amount")

@@ -109,12 +109,16 @@ Datei: [`01_listen_schleifen.py`](01_listen_schleifen.py) · Tests:
 - `increase_temperatures(temperatures)`: **genau der Bug von heute** – die
   Funktion soll alle Temperaturen um 5 erhöhen und die **veränderte**
   Liste zurückgeben, verändert aber nichts.
+- `drop_short_names(names)`: entfernt Elemente aus einer Liste, **während**
+  darüber iteriert wird – ein zweiter klassischer Listen-Stolperstein.
 
 ### Level 3 (Mini-Projekt)
 
 - `temperature_report(cities, temperatures)`: zwei parallele Listen
   gleicher Länge über den Index gemeinsam durchlaufen und einen Report als
   Liste von Strings (`"Berlin: 10°C"`) zurückgeben.
+- `cities_above_average(cities, temperatures)`: Durchschnitt selbst per
+  Schleife berechnen und nur die Städte darüber zurückgeben.
 
 Führe `pytest basics/01-listen-schleifen/ -v` aus, um dein Ergebnis zu
 prüfen. Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) – erst selbst

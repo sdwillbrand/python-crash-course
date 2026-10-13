@@ -27,6 +27,14 @@ def increase_temperatures(temperatures: list) -> list:
     for i in range(len(temperatures)):
         temperatures[i] = temperatures[i] + 5
     return temperatures
+
+
+def drop_short_names(names: list) -> list:
+    kept = []
+    for name in names:
+        if len(name) >= 3:
+            kept.append(name)
+    return kept
 ```
 
 ## Level 3
@@ -39,6 +47,20 @@ def temperature_report(cities: list, temperatures: list) -> list:
     for i in range(len(cities)):
         report.append(f"{cities[i]}: {temperatures[i]}°C")
     return report
+
+
+def cities_above_average(cities: list, temperatures: list) -> list:
+    if len(cities) != len(temperatures) or len(cities) == 0:
+        raise ValueError("cities and temperatures must be non-empty and the same length")
+    total = 0
+    for temp in temperatures:
+        total += temp
+    average = total / len(temperatures)
+    result = []
+    for i in range(len(cities)):
+        if temperatures[i] > average:
+            result.append(cities[i])
+    return result
 ```
 
 ## Didaktische Anmerkungen
@@ -58,3 +80,11 @@ def temperature_report(cities: list, temperatures: list) -> list:
   des Kurses kennst du diese Werkzeuge noch nicht, deshalb der
   Index-basierte Ansatz. Einheit 4 zeigt dir mit `zip()` eine deutlich
   kompaktere Alternative für genau dieses Muster.
+- `drop_short_names` baut bewusst eine **neue** Liste (`kept`) auf, statt
+  Elemente aus `names` zu entfernen, während darüber iteriert wird – das
+  ist derselbe Grundsatz wie bei `increase_temperatures` (Level 2 oben):
+  Verändere eine Liste nicht, während du gleichzeitig über sie iterierst.
+- `cities_above_average` berechnet den Durchschnitt mit demselben
+  Akkumulator-Muster wie `sum_of_list` – zwei getrennte Schleifen
+  (erst Summe, dann Filter) sind hier klarer als der Versuch, beides in
+  einem Durchlauf zu erledigen.

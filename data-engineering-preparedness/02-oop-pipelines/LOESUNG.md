@@ -16,6 +16,18 @@ class Record:
 
     def __str__(self) -> str:
         return f"Record #{self.record_id}: {self.payload}"
+
+
+class Counter:
+    def __init__(self, start: int = 0):
+        self.value = start
+
+    def increment(self, amount: int = 1) -> int:
+        self.value += amount
+        return self.value
+
+    def __repr__(self) -> str:
+        return f"Counter(value={self.value})"
 ```
 
 ## Level 2
@@ -31,6 +43,24 @@ class EventCollector:
 
     def total(self):
         return len(self.collected)   # self statt EventCollector
+
+
+class Base:
+    def __init__(self, name: str):
+        self.name = name
+        self.events: list = []
+
+    def log(self, event: str) -> None:
+        self.events.append(event)
+
+
+class LoggingWorker(Base):
+    def __init__(self, name: str, worker_id: int):
+        super().__init__(name)       # der eigentliche Fix
+        self.worker_id = worker_id
+
+    def summary(self) -> str:
+        return f"{self.name} (#{self.worker_id}): {len(self.events)} events"
 ```
 
 ## Level 3
@@ -133,3 +163,12 @@ class InMemoryUserETL(BaseETL):
   (Stolperstein "versehentliches Mutieren von Original-Daten"), nur jetzt
   beim Entgegennehmen von Daten in einem Konstruktor statt in einer
   Funktion.
+- `super().__init__(name)` als **erste** Zeile in `LoggingWorker.__init__`
+  ist der eigentliche Fix: Ohne diesen Aufruf würde `Base.__init__` nie
+  laufen, `self.name` und `self.events` blieben ungesetzt, und schon
+  `worker.log(...)` würde mit `AttributeError: 'LoggingWorker' object has
+  no attribute 'events'` abstürzen.
+- `Counter.increment()` gibt den **neuen** Wert direkt zurück
+  (`return self.value` nach der Erhöhung), statt dass man ihn danach
+  separat über `counter.value` abfragen müsste – praktisch für
+  Aufrufketten wie `print(f"Zaehler steht bei {counter.increment()}")`.

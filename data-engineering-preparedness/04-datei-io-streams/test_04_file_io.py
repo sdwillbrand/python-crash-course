@@ -81,6 +81,20 @@ class TestLevel2RewriteProductsReport:
         assert rows == [{"name": "Brot", "price": "2.50"}]
 
 
+class TestLevel2ReadCityNames:
+    def test_returns_only_name_values_without_header(self, tmp_path):
+        path = tmp_path / "input.csv"
+        path.write_text("name,price\nKaese,4.99\nBrot,2.50\n", encoding="utf-8")
+
+        assert solution.read_city_names(path) == ["Kaese", "Brot"]
+
+    def test_empty_file_with_only_header_returns_empty_list(self, tmp_path):
+        path = tmp_path / "input.csv"
+        path.write_text("name,price\n", encoding="utf-8")
+
+        assert solution.read_city_names(path) == []
+
+
 class TestLevel3ProcessProductsCsv:
     def _write_input(self, tmp_path, content: str) -> None:
         input_path = tmp_path / "input.csv"
@@ -145,3 +159,44 @@ class TestLevel3ProcessProductsCsv:
 
         assert valid_path.exists()
         assert rejected_path.exists()
+
+
+class TestLevel3AppendToCsvLog:
+    def test_first_call_creates_file_with_header_and_row(self, tmp_path):
+        path = tmp_path / "log.csv"
+        solution.append_to_csv_log(
+            path, {"timestamp": "2024-01-01T10:00:00", "level": "INFO", "message": "start"}
+        )
+
+        with open(path, encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f)
+            assert reader.fieldnames == ["timestamp", "level", "message"]
+            rows = list(reader)
+        assert rows == [
+            {"timestamp": "2024-01-01T10:00:00", "level": "INFO", "message": "start"}
+        ]
+
+    def test_second_call_appends_without_duplicating_header(self, tmp_path):
+        path = tmp_path / "log.csv"
+        solution.append_to_csv_log(
+            path, {"timestamp": "2024-01-01T10:00:00", "level": "INFO", "message": "start"}
+        )
+        solution.append_to_csv_log(
+            path, {"timestamp": "2024-01-01T10:05:00", "level": "ERROR", "message": "failed"}
+        )
+
+        with open(path, encoding="utf-8", newline="") as f:
+            lines = f.readlines()
+        with open(path, encoding="utf-8", newline="") as f:
+            rows = list(csv.DictReader(f))
+
+        assert lines[0].strip() == "timestamp,level,message"
+        assert len(rows) == 2
+        assert rows[1]["message"] == "failed"
+
+    def test_creates_missing_parent_directory(self, tmp_path):
+        path = tmp_path / "logs" / "pipeline.csv"
+        solution.append_to_csv_log(
+            path, {"timestamp": "2024-01-01T10:00:00", "level": "INFO", "message": "start"}
+        )
+        assert path.exists()

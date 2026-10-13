@@ -131,12 +131,16 @@ Datei: [`04_builtins_lambdas.py`](04_builtins_lambdas.py) · Tests:
 
 - `sorted_by_length(words)`: enthält den `key`-als-Positional-Bug. Finde
   und behebe ihn.
+- `doubled_values(numbers)`: enthält den `map()`-gibt-einen-Iterator-Bug.
+  Finde und behebe ihn.
 
 ### Level 3 (Mini-Projekt)
 
 - `warm_cities_report(cities, temperatures)`: kombiniert `zip()`,
   `filter()` + `lambda`, `sorted()` + `lambda` (absteigend) und
   `enumerate()` zu einem nummerierten Report der wärmsten Städte.
+- `cities_sorted_by_name_length(cities)`: dedupliziert mit `set()` und
+  sortiert mit `sorted()` + `lambda` nach einem Tupel-Schlüssel.
 
 Führe `pytest basics/04-builtins-lambdas/ -v` aus, um dein Ergebnis zu
 prüfen. Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) – erst selbst

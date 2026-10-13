@@ -127,11 +127,15 @@ Datei: [`03_funktionen.py`](03_funktionen.py) · Tests:
 
 - `add_tag(record, tags=[])`: enthält den Mutable-Default-Argument-Bug.
   Finde und behebe ihn.
+- `mark_processed(count)`: enthält den `UnboundLocalError`-Bug beim
+  Verändern einer globalen Variable ohne `global`. Finde und behebe ihn.
 
 ### Level 3 (Mini-Projekt)
 
 - `running_total(amounts, start_balance=0)`: Liste laufender Summen,
   beginnend bei `start_balance`.
+- `apply_discount(prices, discount_percent=10)`: rabattierte Preise mit
+  Default-Parameter und Validierung.
 
 Führe `pytest basics/03-funktionen/ -v` aus, um dein Ergebnis zu prüfen.
 Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) – erst selbst

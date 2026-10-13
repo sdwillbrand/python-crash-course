@@ -164,6 +164,8 @@ Datei: [`04_file_io.py`](04_file_io.py) · Tests:
 - `rewrite_products_report(input_path, output_path)`: enthält **zwei**
   Bugs (falsches Encoding beim Lesen, fehlendes `writeheader()` beim
   Schreiben). Finde und behebe beide.
+- `read_city_names(path)`: enthält den `csv.reader`-statt-`DictReader`-Bug
+  (Kopfzeile landet fälschlich mit im Ergebnis). Finde und behebe ihn.
 
 ### Level 3 (Mini-Projekt)
 
@@ -171,6 +173,8 @@ Datei: [`04_file_io.py`](04_file_io.py) · Tests:
   rejected_output_path)`: liest eine Produkt-CSV **zeilenweise** ein,
   trennt gültige von ungültigen Zeilen (ungültiger/fehlender Preis) und
   schreibt beide Gruppen in separate CSV-Dateien.
+- `append_to_csv_log(path, entry)`: hängt einen Eintrag an eine
+  CSV-Logdatei an – schreibt die Kopfzeile nur beim allerersten Aufruf.
 
 Führe `pytest 04-datei-io-streams/ -v` aus, um dein Ergebnis zu prüfen.
 Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) – erst selbst

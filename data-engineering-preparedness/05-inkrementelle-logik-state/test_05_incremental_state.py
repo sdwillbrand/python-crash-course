@@ -96,6 +96,30 @@ class TestLevel2ProcessNewEvents:
         assert state["last_processed_id"] == 5
 
 
+class TestLevel2LatestEvent:
+    def test_finds_later_timestamp_in_same_timezone(self):
+        events = [
+            {"id": 1, "timestamp": "2024-01-05T09:00:00+00:00"},
+            {"id": 2, "timestamp": "2024-01-05T10:00:00+00:00"},
+        ]
+        assert solution.latest_event(events) == events[1]
+
+    def test_different_offsets_would_break_naive_string_comparison(self):
+        # Gleiche lokale Uhrzeit, unterschiedlicher Offset: id=1 (+01:00)
+        # ist in UTC (08:00) tatsaechlich SPAETER als id=2 (+02:00 -> 07:00
+        # UTC) - ein reiner String-Vergleich der Timestamps wuerde das
+        # genau andersherum einschaetzen ("+01:00" < "+02:00" als String).
+        events = [
+            {"id": 1, "timestamp": "2024-01-05T09:00:00+01:00"},
+            {"id": 2, "timestamp": "2024-01-05T09:00:00+02:00"},
+        ]
+        assert solution.latest_event(events) == events[0]
+
+    def test_single_event_is_returned(self):
+        events = [{"id": 1, "timestamp": "2024-01-05T09:00:00+00:00"}]
+        assert solution.latest_event(events) == events[0]
+
+
 class TestLevel3CdcStateStore:
     def test_load_returns_zero_when_file_does_not_exist(self, tmp_path):
         store = solution.CdcStateStore(tmp_path / "state.json")

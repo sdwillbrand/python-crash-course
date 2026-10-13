@@ -32,6 +32,11 @@ bräuchtest, würdest du ihn auf einer **Kopie** setzen
 (`user_copy = user.copy(); user_copy["checked"] = True`), nicht auf dem
 Original.
 
+```python
+def id_to_name_lookup(users: list[dict]) -> dict:
+    return {user["id"]: user["name"] for user in users}
+```
+
 ## Level 3
 
 ```python
@@ -59,6 +64,20 @@ def clean_records(records: list[dict]) -> tuple[list[dict], list[dict]]:
         valid.append(record)
 
     return valid, rejected
+
+
+def merge_records_by_id(records: list[dict], updates: list[dict]) -> list[dict]:
+    updates_by_id = {update["id"]: update for update in updates}
+    result = []
+    for record in records:
+        update = updates_by_id.get(record["id"])
+        if update is None:
+            result.append(record.copy())
+        else:
+            merged = record.copy()
+            merged.update(update)
+            result.append(merged)
+    return result
 ```
 
 ## Didaktische Anmerkungen
@@ -80,3 +99,9 @@ def clean_records(records: list[dict]) -> tuple[list[dict], list[dict]]:
 - Diese Funktion ist die Blaupause für "Rejected Rows", die du in Modul 3 mit
   echtem Exception-Handling und Logging erweiterst, statt die Fehlerursache
   nur als String im Dict mitzuführen.
+- `merge_records_by_id` baut zuerst ein Lookup-Dict `updates_by_id` (dieselbe
+  Dict-Comprehension-Idee wie `id_to_name_lookup`), statt für jedes Record
+  die komplette `updates`-Liste linear zu durchsuchen – ein kleiner
+  Vorgeschmack auf effizientes Daten-Matching. `merged.update(update)`
+  überschreibt in der **Kopie** nur die im Update enthaltenen Felder, alle
+  anderen Felder des Original-Records bleiben erhalten.

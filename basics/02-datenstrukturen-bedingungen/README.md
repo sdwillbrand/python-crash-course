@@ -124,12 +124,16 @@ Datei: [`02_datenstrukturen_bedingungen.py`](02_datenstrukturen_bedingungen.py)
 - `classify_temperatures(temperatures)`: enthält den "unabhängige
   `if`-Blöcke statt `elif`"-Bug aus der Code-Anatomie. Finde und behebe
   ihn.
+- `unique_preserve_first_seen(items)`: enthält den `{}`-ist-ein-Dict-Bug
+  aus der Code-Anatomie. Finde und behebe ihn.
 
 ### Level 3 (Mini-Projekt)
 
 - `group_cities_by_temperature(cities, temperatures)`: kombiniert Tupel
   (`(stadt, temperatur)`), ein Dict (drei Kategorien) und eine
   `if`/`elif`/`else`-Kette.
+- `temperature_extremes(cities, temperatures)`: wärmste und kälteste Stadt
+  per Schleife und `if`/`elif` finden (noch ohne `min()`/`max()`).
 
 Führe `pytest basics/02-datenstrukturen-bedingungen/ -v` aus, um dein
 Ergebnis zu prüfen. Lösung zum Nachschlagen: [`LOESUNG.md`](LOESUNG.md) –

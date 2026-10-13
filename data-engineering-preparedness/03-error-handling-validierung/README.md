@@ -206,6 +206,9 @@ Datei: [`03_error_handling.py`](03_error_handling.py) · Tests:
 
 - `parse_price(value)`: enthält **zwei** Bugs (bare `except:` und
   `== float("nan")`-Vergleich). Finde und behebe beide.
+- `safe_divide(a, b)`: enthält einen zu breiten `except Exception:`, der
+  auch einen `TypeError` stillschweigend verschluckt. Finde und behebe
+  ihn.
 
 ### Level 3 (Mini-Projekt)
 

@@ -52,6 +52,26 @@ def increase_temperatures(temperatures: list) -> list:
     return temperatures
 
 
+def drop_short_names(names: list) -> list:
+    """Gibt eine NEUE Liste zurueck, die nur Namen mit mindestens 3 Zeichen
+    enthaelt.
+
+    BUG: Der Code entfernt Elemente aus `names`, WAEHREND er ueber genau
+    diese Liste iteriert (`names.remove(...)` innerhalb von
+    `for name in names:`). Das verschiebt die Indizes mitten im Durchlauf
+    und fuehrt dazu, dass manche kurzen Namen uebersprungen werden (nie
+    geprueft werden) und faelschlich in der Liste bleiben.
+
+    Finde und behebe den Bug, ohne die Funktionssignatur zu aendern. Baue
+    dafuer eine NEUE Ergebnisliste auf, statt die Eingabeliste waehrend
+    des Durchlaufs zu veraendern.
+    """
+    for name in names:
+        if len(name) < 3:
+            names.remove(name)
+    return names
+
+
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
@@ -66,6 +86,22 @@ def temperature_report(cities: list, temperatures: list) -> list:
 
     Wirf ValueError, wenn cities und temperatures unterschiedlich lang
     sind.
+    """
+    # TODO: implementieren
+    raise NotImplementedError
+
+
+def cities_above_average(cities: list, temperatures: list) -> list:
+    """Gibt die Namen der Staedte zurueck, deren Temperatur UEBER dem
+    Durchschnitt aller Temperaturen liegt.
+
+    Berechne den Durchschnitt SELBST mit einer Schleife und einer
+    Akkumulator-Variable (wie in sum_of_list) - nutze noch nicht sum()
+    (das ist Thema von Einheit 4). `cities` und `temperatures` sind
+    parallele Listen gleicher Laenge.
+
+    Wirf ValueError, wenn die Listen leer sind oder unterschiedlich lang
+    sind (ein Durchschnitt waere sonst nicht definiert).
     """
     # TODO: implementieren
     raise NotImplementedError
