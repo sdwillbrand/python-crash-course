@@ -1,4 +1,4 @@
-# Tag 4: Built-in Functions & Lambdas
+# Einheit 4: Built-in Functions & Lambdas
 
 ## Nützliche eingebaute Funktionen
 
@@ -12,14 +12,14 @@ sum(temperatures)                 # Summe aller Werte
 ```
 
 `enumerate(iterable, start=0)` löst elegant das "ich brauche Index UND
-Wert"-Problem aus Tag 1/2 – kein `range(len(...))` mehr nötig:
+Wert"-Problem aus Einheit 1/2 – kein `range(len(...))` mehr nötig:
 
 ```python
 for index, city in enumerate(cities, start=1):
     print(f"{index}. {city}")
 ```
 
-`zip(list1, list2)` löst **genau** das Problem aus Tag 1 Level 3 (zwei
+`zip(list1, list2)` löst **genau** das Problem aus Einheit 1 Level 3 (zwei
 parallele Listen gemeinsam durchlaufen) viel kompakter als eine
 Index-Schleife:
 
@@ -124,7 +124,7 @@ Datei: [`04_builtins_lambdas.py`](04_builtins_lambdas.py) · Tests:
 - `fahrenheit_values(celsius_temps)`: Celsius → Fahrenheit, mit `map()` +
   `lambda` (löst endlich den "Temperature Converter" aus dem heutigen
   Coaching sauber).
-- `paired_report(cities, temperatures)`: wie in Tag 1 Level 3, jetzt mit
+- `paired_report(cities, temperatures)`: wie in Einheit 1 Level 3, jetzt mit
   `zip()` statt Index-Schleife.
 
 ### Level 2 (Refactoring/Debugging)

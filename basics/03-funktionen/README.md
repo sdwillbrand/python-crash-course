@@ -1,4 +1,4 @@
-# Tag 3: Funktionen
+# Einheit 3: Funktionen
 
 ## `def`, Parameter und `return`
 

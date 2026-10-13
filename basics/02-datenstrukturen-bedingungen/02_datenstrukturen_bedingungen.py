@@ -1,4 +1,4 @@
-"""Tag 2: Weitere Datenstrukturen & If-Statements - Uebungsaufgaben.
+"""Einheit 2: Weitere Datenstrukturen & If-Statements - Uebungsaufgaben.
 
 Fuelle die TODO-Abschnitte aus. Fuehre
 `pytest basics/02-datenstrukturen-bedingungen/ -v` aus, um dein Ergebnis zu

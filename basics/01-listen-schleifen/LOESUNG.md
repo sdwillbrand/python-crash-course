@@ -1,4 +1,4 @@
-# Lösung: Listen & Schleifen (Tag 1)
+# Lösung: Listen & Schleifen (Einheit 1)
 
 Erst selbst versuchen! Diese Lösung zeigt einen möglichen Weg, nicht den
 einzig richtigen.
@@ -56,5 +56,5 @@ def temperature_report(cities: list, temperatures: list) -> list:
 - `temperature_report` ist bewusst ein Vorgriff auf Modul 5
   (`zip`/`enumerate` würden das hier eleganter lösen) – an dieser Stelle
   des Kurses kennst du diese Werkzeuge noch nicht, deshalb der
-  Index-basierte Ansatz. Tag 4 zeigt dir mit `zip()` eine deutlich
+  Index-basierte Ansatz. Einheit 4 zeigt dir mit `zip()` eine deutlich
   kompaktere Alternative für genau dieses Muster.

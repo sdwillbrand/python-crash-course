@@ -2,7 +2,7 @@
 
 Ein projektbasierter Crashcourse, der in zwei Etappen zum fehlenden
 Rüstzeug für fortgeschrittene Data-Engineering-Aufgaben führt: zuerst die
-**Grundlagen** (Tag 1–4: Listen, Schleifen, weitere Datenstrukturen,
+**Grundlagen** (Einheit 1–4: Listen, Schleifen, weitere Datenstrukturen,
 If-Statements, Funktionen, Built-ins & Lambdas), danach die **5
 Data-Engineering-Module** (benutzerdefinierte ETL-Klassen, Inkrementallogik,
 robuste Pipelines, sauberes Error Handling, Typprüfungen). Jede Einheit
@@ -12,9 +12,9 @@ Feedback per `pytest`.
 ## Voraussetzungen
 
 - Python 3.10+ (`python3 --version`).
-- Für Tag 1–4: keine Vorkenntnisse nötig – Einstiegspunkt für absolute
+- Für Einheit 1–4: keine Vorkenntnisse nötig – Einstiegspunkt für absolute
   Python-Anfänger:innen.
-- Für Modul 1–5: die Inhalte aus Tag 1–4 (oder vergleichbares Grundwissen:
+- Für Modul 1–5: die Inhalte aus Einheit 1–4 (oder vergleichbares Grundwissen:
   Funktionen, Schleifen, einfache Datentypen).
 - `pytest` installiert: `pip install -r requirements.txt`.
 
@@ -24,18 +24,18 @@ brauchst, wenn kein High-Level-Framework zur Verfügung steht (z. B. in
 Lambda-Funktionen, Streaming-Konsumenten oder beim Debuggen von
 Pandas-Code, dessen Fehler letztlich auf diesen Grundlagen beruhen).
 
-## Aufbau: `basics/` (Tag 1–4)
+## Aufbau: `basics/` (Einheit 1–4)
 
-| Tag | Thema | Praxisfokus | Status |
+| Einheit | Thema | Praxisfokus | Status |
 |---|---|---|---|
 | [1](basics/01-listen-schleifen/README.md) | Rückblick: Listen & Schleifen | Homogene/heterogene Listen, Schleifenkopf/-körper, Schleifenvariable ≠ Referenz | ✅ |
 | [2](basics/02-datenstrukturen-bedingungen/README.md) | Weitere Datenstrukturen & If-Statements | Tupel, Sets, `if/elif/else`, Truthiness | ✅ |
 | [3](basics/03-funktionen/README.md) | Funktionen | `def`, Default-Parameter, `return` vs. `print`, Scope | ✅ |
 | [4](basics/04-builtins-lambdas/README.md) | Built-in Functions & Lambdas | `zip`, `enumerate`, `sorted`, `map`/`filter`, `lambda` | ✅ |
 
-Tag 1 greift direkt auf, was im Coaching an diesem Tag passiert ist (siehe
+Einheit 1 greift direkt auf, was live im Coaching entstanden ist (siehe
 [`basics/practice/temperature-converter.py`](basics/practice/temperature-converter.py))
-– Tag 2–4 führen folgerichtig weiter zu den Werkzeugen, die
+– Einheit 2–4 führen folgerichtig weiter zu den Werkzeugen, die
 `data-engineering-preparedness/` voraussetzt.
 
 ## Aufbau: `data-engineering-preparedness/` (Modul 1–5)
@@ -87,10 +87,10 @@ sind. Vergleiche danach optional mit `LOESUNG.md`.
 
 ## Empfohlene Reihenfolge
 
-**Tag 1–4** bauen direkt aufeinander auf und sollten der Reihe nach
-bearbeitet werden: Tag 1 (Listen/Schleifen) und Tag 2 (weitere
-Datenstrukturen/If-Statements) liefern das Werkzeug für Tag 3 (Funktionen);
-Tag 4 (Built-ins/Lambdas) löst mehrere Aufgaben aus Tag 1–3 nochmal
+**Einheit 1–4** bauen direkt aufeinander auf und sollten der Reihe nach
+bearbeitet werden: Einheit 1 (Listen/Schleifen) und Einheit 2 (weitere
+Datenstrukturen/If-Statements) liefern das Werkzeug für Einheit 3 (Funktionen);
+Einheit 4 (Built-ins/Lambdas) löst mehrere Aufgaben aus Einheit 1–3 nochmal
 eleganter (z. B. `zip()` statt Index-Schleife) und rundet damit die
 Grundlagen ab.
 

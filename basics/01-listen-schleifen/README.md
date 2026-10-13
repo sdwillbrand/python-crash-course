@@ -1,4 +1,4 @@
-# Tag 1: Rückblick – Listen & Schleifen
+# Einheit 1: Rückblick – Listen & Schleifen
 
 Dieses Modul fasst strukturiert zusammen, was wir heute im Coaching
 behandelt haben (siehe auch [`../practice/temperature-converter.py`](../practice/temperature-converter.py)):
@@ -100,7 +100,7 @@ Datei: [`01_listen_schleifen.py`](01_listen_schleifen.py) · Tests:
 ### Level 1 (Basic)
 
 - `sum_of_list(numbers)`: Summe aller Zahlen – mit einer Schleife und einer
-  Akkumulator-Variable (noch nicht mit `sum()` – das kommt in Tag 4).
+  Akkumulator-Variable (noch nicht mit `sum()` – das kommt in Einheit 4).
 - `contains_value(items, target)`: `True`/`False`, ob `target` in `items`
   vorkommt – mit einer Schleife (noch nicht mit dem `in`-Operator).
 

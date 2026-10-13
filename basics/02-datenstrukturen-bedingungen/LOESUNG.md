@@ -1,4 +1,4 @@
-# Lösung: Weitere Datenstrukturen & If-Statements (Tag 2)
+# Lösung: Weitere Datenstrukturen & If-Statements (Einheit 2)
 
 Erst selbst versuchen! Diese Lösung zeigt einen möglichen Weg, nicht den
 einzig richtigen.

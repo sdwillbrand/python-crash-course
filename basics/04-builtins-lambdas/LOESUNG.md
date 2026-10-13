@@ -1,4 +1,4 @@
-# Lösung: Built-in Functions & Lambdas (Tag 4)
+# Lösung: Built-in Functions & Lambdas (Einheit 4)
 
 Erst selbst versuchen! Diese Lösung zeigt einen möglichen Weg, nicht den
 einzig richtigen.
@@ -51,7 +51,7 @@ def warm_cities_report(cities: list, temperatures: list) -> list:
   sichtbaren, sofortigen Fehler.
 - `filter(lambda pair: pair[1] > 10, pairs)` arbeitet auf **Tupeln**
   `(city, temp)` – `pair[1]` greift auf das zweite Tupel-Element (die
-  Temperatur) zu. Das knüpft direkt an Tag 2 (Tupel) an.
+  Temperatur) zu. Das knüpft direkt an Einheit 2 (Tupel) an.
 - `paired_report` und `warm_cities_report` nutzen hier bewusst noch
   klassische `for`-Schleifen mit `.append(...)` statt List
   Comprehensions – Comprehensions sind erst Thema von Modul 1. Sobald du

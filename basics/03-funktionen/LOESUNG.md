@@ -1,4 +1,4 @@
-# Lösung: Funktionen (Tag 3)
+# Lösung: Funktionen (Einheit 3)
 
 Erst selbst versuchen! Diese Lösung zeigt einen möglichen Weg, nicht den
 einzig richtigen.

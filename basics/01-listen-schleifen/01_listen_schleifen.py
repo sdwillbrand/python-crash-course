@@ -1,4 +1,4 @@
-"""Tag 1: Listen & Schleifen - Uebungsaufgaben.
+"""Einheit 1: Listen & Schleifen - Uebungsaufgaben.
 
 Fuelle die TODO-Abschnitte aus. Fuehre
 `pytest basics/01-listen-schleifen/ -v` aus, um dein Ergebnis zu pruefen.
@@ -17,7 +17,7 @@ def sum_of_list(numbers: list) -> float:
 
     Nutze eine for-Schleife und eine Akkumulator-Variable (z.B. total = 0),
     die bei jedem Durchlauf erhoeht wird. Nutze NICHT die eingebaute
-    Funktion sum() - das ist Thema von Tag 4.
+    Funktion sum() - das ist Thema von Einheit 4.
     """
     # TODO: implementieren
     raise NotImplementedError

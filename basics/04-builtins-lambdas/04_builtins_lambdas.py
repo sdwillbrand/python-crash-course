@@ -1,4 +1,4 @@
-"""Tag 4: Built-in Functions & Lambdas - Uebungsaufgaben.
+"""Einheit 4: Built-in Functions & Lambdas - Uebungsaufgaben.
 
 Fuelle die TODO-Abschnitte aus. Fuehre
 `pytest basics/04-builtins-lambdas/ -v` aus, um dein Ergebnis zu pruefen.
