@@ -1,8 +1,7 @@
-"""Modul 4: Datei-I/O & Streams - Uebungsaufgaben.
+"""Modul 4: Datei-I/O & Streams - Loesungen.
 
-Fuelle die TODO-Abschnitte aus. Fuehre `pytest 04-datei-io-streams/ -v` aus,
-um dein Ergebnis zu pruefen. Erklaerungen und Code-Beispiele: siehe
-README.md in diesem Ordner.
+Dies ist der 'solutions'-Branch: alle Uebungen sind bereits geloest.
+Die Original-Uebungsdatei (mit TODOs/Bugs) findest du im 'main'-Branch.
 """
 
 from __future__ import annotations
@@ -17,24 +16,14 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 
 def read_csv_as_dicts(path: Path) -> list[dict]:
-    """Liest eine CSV-Datei ein und gibt die Zeilen als Liste von Dicts zurueck.
-
-    Oeffne die Datei mit encoding="utf-8" und newline="" (siehe README).
-    Nutze csv.DictReader.
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    with open(path, encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        return list(reader)
 
 
 def ensure_parent_dir(path: Path) -> Path:
-    """Stellt sicher, dass das Elternverzeichnis von `path` existiert.
-
-    Legt fehlende (Zwischen-)Verzeichnisse an, wirft aber KEINE Exception,
-    falls das Verzeichnis bereits existiert. Gibt `path` unveraendert
-    zurueck.
-    """
-    # TODO: implementieren (pathlib: .parent, .mkdir)
-    raise NotImplementedError
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return path
 
 
 # ---------------------------------------------------------------------------
@@ -42,91 +31,77 @@ def ensure_parent_dir(path: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def rewrite_products_report(input_path: Path, output_path: Path) -> None:
-    """Liest Produkte aus input_path und schreibt einen Report nach output_path.
-
-    Dieser Code enthaelt ZWEI Bugs:
-      1. Die Eingabedatei wird mit einem fest codierten, falschen Encoding
-         geoeffnet (encoding="latin-1") statt mit "utf-8" - Umlaute werden
-         dadurch falsch dekodiert (Mojibake statt z.B. "Kaese" mit Umlaut).
-      2. Beim Schreiben wird writer.writeheader() nie aufgerufen - die
-         Ausgabedatei bekommt dadurch keine Kopfzeile.
-
-    Finde und behebe beide Bugs, ohne die Funktionssignatur zu aendern.
-    """
-    with open(input_path, encoding="latin-1", newline="") as f:
+    with open(input_path, encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f)
         rows = list(reader)
 
     with open(output_path, "w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["name", "price"])
+        writer.writeheader()
         for row in rows:
             writer.writerow({"name": row["name"], "price": row["price"]})
 
 
 def read_city_names(path: Path) -> list:
-    """Liest nur die "name"-Spalte aus einer CSV-Datei mit Spalten
-    "name,price".
-
-    BUG: Nutzt csv.reader (liefert jede Zeile als LISTE von Strings,
-    inklusive der Kopfzeile als erste Zeile) statt csv.DictReader. Dadurch
-    landet faelschlich die Kopfzeile selbst mit in der Rueckgabe.
-
-    Finde und behebe den Bug (nutze csv.DictReader), ohne die
-    Funktionssignatur zu aendern.
-    """
     with open(path, encoding="utf-8", newline="") as f:
-        reader = csv.reader(f)
-        return [row[0] for row in reader]
+        reader = csv.DictReader(f)
+        return [row["name"] for row in reader]
 
 
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
 
+def _parse_valid_price(raw_price: str) -> float | None:
+    try:
+        price = float(raw_price)
+    except (ValueError, TypeError):
+        return None
+    if not math.isfinite(price) or price <= 0:
+        return None
+    return price
+
+
 def process_products_csv(
     input_path: Path,
     valid_output_path: Path,
     rejected_output_path: Path,
 ) -> dict:
-    """Trennt eine Produkt-CSV in gueltige und ungueltige Zeilen (zwei Dateien).
+    ensure_parent_dir(valid_output_path)
+    ensure_parent_dir(rejected_output_path)
 
-    Eingabespalten: "name", "price" (price als String, z.B. "4.99").
+    valid_count = 0
+    rejected_count = 0
 
-    Eine Zeile ist UNGUELTIG, wenn sich "price" nicht in eine endliche Zahl
-    > 0 umwandeln laesst (nutze math.isfinite, sowie try/except fuer
-    float(...) - siehe Modul 3).
+    with open(input_path, encoding="utf-8", newline="") as infile, \
+            open(valid_output_path, "w", encoding="utf-8", newline="") as valid_file, \
+            open(rejected_output_path, "w", encoding="utf-8", newline="") as rejected_file:
 
-    Schreibe:
-      - valid_output_path mit Spalten ["name", "price"]: price formatiert
-        als String mit 2 Nachkommastellen (z.B. f"{price:.2f}").
-      - rejected_output_path mit Spalten ["name", "price", "reason"]: price
-        unveraendert als Original-String, "reason" = "invalid price".
+        reader = csv.DictReader(infile)
+        valid_writer = csv.DictWriter(valid_file, fieldnames=["name", "price"])
+        rejected_writer = csv.DictWriter(rejected_file, fieldnames=["name", "price", "reason"])
+        valid_writer.writeheader()
+        rejected_writer.writeheader()
 
-    Beide Dateien mit encoding="utf-8" und newline="" oeffnen, jeweils mit
-    writeheader(). Lies die Eingabedatei ZEILENWEISE (nicht list(reader)).
-    Lege fehlende Elternverzeichnisse der beiden Ausgabepfade bei Bedarf an
-    (z.B. mit ensure_parent_dir aus Level 1).
+        for row in reader:
+            price = _parse_valid_price(row["price"])
+            if price is None:
+                rejected_writer.writerow(
+                    {"name": row["name"], "price": row["price"], "reason": "invalid price"}
+                )
+                rejected_count += 1
+            else:
+                valid_writer.writerow({"name": row["name"], "price": f"{price:.2f}"})
+                valid_count += 1
 
-    Gib {"valid": <anzahl gueltige Zeilen>, "rejected": <anzahl ungueltige
-    Zeilen>} zurueck.
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    return {"valid": valid_count, "rejected": rejected_count}
 
 
 def append_to_csv_log(path: Path, entry: dict) -> None:
-    """Haengt einen einzelnen Eintrag an eine CSV-Logdatei an.
-
-    Spalten: ["timestamp", "level", "message"] (entry enthaelt genau
-    diese drei Keys).
-
-    - Existiert `path` noch NICHT, muss zuerst die Kopfzeile geschrieben
-      werden.
-    - Existiert `path` bereits, wird NUR die neue Zeile angehaengt (Modus
-      "a"), OHNE die Kopfzeile erneut zu schreiben und OHNE den
-      bestehenden Inhalt zu verlieren.
-    - Lege ein fehlendes Elternverzeichnis bei Bedarf an.
-    - encoding="utf-8", newline="".
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    ensure_parent_dir(path)
+    file_exists = path.exists()
+    with open(path, "a", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["timestamp", "level", "message"])
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow(entry)

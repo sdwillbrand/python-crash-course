@@ -1,8 +1,7 @@
-"""Modul 3: Robustes Error Handling & Validierung - Uebungsaufgaben.
+"""Modul 3: Robustes Error Handling & Validierung - Loesungen.
 
-Fuelle die TODO-Abschnitte aus. Fuehre
-`pytest 03-error-handling-validierung/ -v` aus, um dein Ergebnis zu pruefen.
-Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
+Dies ist der 'solutions'-Branch: alle Uebungen sind bereits geloest.
+Die Original-Uebungsdatei (mit TODOs/Bugs) findest du im 'main'-Branch.
 """
 
 from __future__ import annotations
@@ -15,34 +14,21 @@ import math
 # ---------------------------------------------------------------------------
 
 def is_valid_number(value) -> bool:
-    """True nur fuer endliche int/float-Werte, sonst False.
-
-    False fuer: None, bool wird NICHT extra behandelt (bool ist in Python
-    eine Unterklasse von int - das ist hier in Ordnung), NaN, +/- inf,
-    Strings, Listen, etc.
-
-    Nutze isinstance() UND math.isfinite(). Rufe math.isfinite() nicht mit
-    einem Wert auf, der kein int/float ist (das wuerde TypeError werfen) -
-    pruefe den Typ zuerst.
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        return False
+    return math.isfinite(value)
 
 
 def safe_convert_to_float(value, stats: dict) -> float | None:
-    """Konvertiert value zu float; aktualisiert dabei das stats-Dict.
-
-    stats enthaelt bereits die Keys "attempts" (int) und "errors" (int).
-
-    Verhalten:
-      - "attempts" wird bei JEDEM Aufruf um 1 erhoeht - egal ob die
-        Konvertierung klappt oder nicht. Nutze dafuer finally.
-      - Schlaegt float(value) mit ValueError oder TypeError fehl, wird
-        zusaetzlich "errors" um 1 erhoeht und None zurueckgegeben.
-      - Bei Erfolg wird der konvertierte float-Wert zurueckgegeben.
-    """
-    # TODO: implementieren (try/except/finally)
-    raise NotImplementedError
+    try:
+        result = float(value)
+    except (ValueError, TypeError):
+        stats["errors"] += 1
+        return None
+    else:
+        return result
+    finally:
+        stats["attempts"] += 1
 
 
 # ---------------------------------------------------------------------------
@@ -50,47 +36,19 @@ def safe_convert_to_float(value, stats: dict) -> float | None:
 # ---------------------------------------------------------------------------
 
 def parse_price(value):
-    """Konvertiert value zu einem gueltigen Preis (float) oder gibt None zurueck.
-
-    Dieser Code enthaelt ZWEI Bugs:
-      1. `price == float("nan")` ist IMMER False (NaN ist nie gleich sich
-         selbst) - ein NaN-Wert wuerde diese Pruefung unbemerkt passieren
-         und unveraendert zurueckgegeben werden.
-      2. Der bare `except:` faengt JEDE Exception ab, nicht nur die
-         erwarteten ValueError/TypeError - das verschleiert echte
-         Programmierfehler.
-
-    Ersetze die kaputte NaN-Pruefung durch math.isfinite(price) (siehe
-    README) - das lehnt als Nebeneffekt auch +/- inf ab, was fuer einen
-    "gueltigen Preis" ebenfalls gewuenscht ist. Finde und behebe beide Bugs,
-    ohne die Funktionssignatur zu aendern.
-    """
     try:
         price = float(value)
-        if price == float("nan"):
-            return None
-    except:
+    except (ValueError, TypeError):
+        return None
+    if not math.isfinite(price):
         return None
     return price
 
 
 def safe_divide(a: float, b: float) -> float | None:
-    """Gibt a / b zurueck, oder None bei ZeroDivisionError.
-
-    BUG: Der except-Block faengt zwar ZeroDivisionError ab, aber durch
-    `except Exception:` wird auch ein TypeError (z.B. wenn b ein String
-    statt einer Zahl ist) stillschweigend verschluckt und liefert
-    ebenfalls None - das verdeckt einen echten Programmierfehler (falscher
-    Typ wurde uebergeben), der eigentlich sichtbar auffallen sollte.
-
-    Fange NUR ZeroDivisionError ab - ein TypeError soll weiterhin
-    durchgereicht werden (nicht abgefangen).
-
-    Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
-    """
     try:
         return a / b
-    except Exception:
+    except ZeroDivisionError:
         return None
 
 
@@ -103,49 +61,47 @@ class PipelineError(Exception):
 
 
 class MissingFieldError(PipelineError):
-    """TODO: __init__(self, field: str) - speichere self.field und rufe
-    super().__init__(f"missing field: {field}") auf.
-    """
-
     def __init__(self, field: str):
-        raise NotImplementedError
+        self.field = field
+        super().__init__(f"missing field: {field}")
 
 
 class InvalidValueError(PipelineError):
-    """TODO: __init__(self, field: str, value) - speichere self.field und
-    self.value, rufe super().__init__(f"invalid value for {field!r}: {value!r}")
-    auf.
-    """
-
     def __init__(self, field: str, value):
-        raise NotImplementedError
+        self.field = field
+        self.value = value
+        super().__init__(f"invalid value for {field!r}: {value!r}")
 
 
 REQUIRED_FIELDS = ("id", "name", "amount")
 
 
 def validate_record(record: dict) -> dict:
-    """Validiert ein Record und gibt eine validierte Kopie zurueck.
+    for field in REQUIRED_FIELDS:
+        if field not in record:
+            raise MissingFieldError(field)
 
-    Wirft:
-      - MissingFieldError(field), wenn eines von REQUIRED_FIELDS fehlt.
-      - InvalidValueError("amount", wert), wenn sich record["amount"] nicht
-        in eine endliche Zahl (math.isfinite) umwandeln laesst.
+    try:
+        amount = float(record["amount"])
+    except (ValueError, TypeError):
+        raise InvalidValueError("amount", record["amount"]) from None
 
-    Die validierte Kopie hat "amount" als float (nicht als Original-Typ,
-    z.B. str).
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    if not math.isfinite(amount):
+        raise InvalidValueError("amount", record["amount"])
+
+    validated = record.copy()
+    validated["amount"] = amount
+    return validated
 
 
 def process_batch(records: list[dict]) -> tuple[list[dict], list[dict]]:
-    """Validiert jedes Record einzeln - ein fehlerhaftes Record darf die
-    Verarbeitung der anderen NICHT verhindern.
-
-    Gibt (valid, rejected) zurueck. Jeder Eintrag in `rejected` ist ein
-    Dict mit den Keys "record" (das Original-Record) und "error"
-    (str(exception)).
-    """
-    # TODO: implementieren (try/except/else)
-    raise NotImplementedError
+    valid = []
+    rejected = []
+    for record in records:
+        try:
+            validated = validate_record(record)
+        except PipelineError as exc:
+            rejected.append({"record": record, "error": str(exc)})
+        else:
+            valid.append(validated)
+    return valid, rejected

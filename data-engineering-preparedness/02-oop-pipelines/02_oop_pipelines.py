@@ -1,7 +1,7 @@
-"""Modul 2: OOP fuer Pipelines - Uebungsaufgaben.
+"""Modul 2: OOP fuer Pipelines - Loesungen.
 
-Fuelle die TODO-Abschnitte aus. Fuehre `pytest 02-oop-pipelines/ -v` aus, um
-dein Ergebnis zu pruefen. Erklaerungen und Code-Beispiele: siehe README.md.
+Dies ist der 'solutions'-Branch: alle Uebungen sind bereits geloest.
+Die Original-Uebungsdatei (mit TODOs/Bugs) findest du im 'main'-Branch.
 """
 
 from __future__ import annotations
@@ -12,45 +12,27 @@ from __future__ import annotations
 # ---------------------------------------------------------------------------
 
 class Record:
-    """Ein einzelner Datensatz mit ID und Payload.
-
-    TODO:
-      - __init__(self, record_id: int, payload: dict): speichere beide
-        Argumente als gleichnamige Instanzattribute.
-      - __repr__(self) -> str: "Record(record_id=1, payload={'a': 1})"
-        (nutze !r fuer record_id und payload).
-      - __str__(self) -> str: "Record #1: {'a': 1}"
-    """
-
     def __init__(self, record_id: int, payload: dict):
-        raise NotImplementedError
+        self.record_id = record_id
+        self.payload = payload
 
     def __repr__(self) -> str:
-        raise NotImplementedError
+        return f"Record(record_id={self.record_id!r}, payload={self.payload!r})"
 
     def __str__(self) -> str:
-        raise NotImplementedError
+        return f"Record #{self.record_id}: {self.payload}"
 
 
 class Counter:
-    """Einfacher Zaehler mit Instanzzustand.
-
-    TODO:
-      - __init__(self, start: int = 0): speichere self.value = start.
-      - increment(self, amount: int = 1) -> int: erhoehe self.value um
-        amount und gib den NEUEN Wert zurueck.
-      - __repr__(self) -> str: "Counter(value=5)" (dynamisch mit dem
-        aktuellen self.value, nutze !r NICHT fuer eine Zahl).
-    """
-
     def __init__(self, start: int = 0):
-        raise NotImplementedError
+        self.value = start
 
     def increment(self, amount: int = 1) -> int:
-        raise NotImplementedError
+        self.value += amount
+        return self.value
 
     def __repr__(self) -> str:
-        raise NotImplementedError
+        return f"Counter(value={self.value})"
 
 
 # ---------------------------------------------------------------------------
@@ -58,33 +40,18 @@ class Counter:
 # ---------------------------------------------------------------------------
 
 class EventCollector:
-    """Sammelt Events pro Collector-Instanz.
-
-    Dieser Code enthaelt ZWEI Bugs:
-      1. `collected` ist ein Klassenattribut statt eines Instanzattributs -
-         alle Instanzen teilen sich dieselbe Liste.
-      2. `total()` liest `EventCollector.collected` (das Klassenattribut)
-         statt `self.collected` - dadurch ignoriert es ggf. sogar ein
-         bereits korrekt gesetztes Instanzattribut.
-
-    Finde und behebe beide Bugs, ohne die Methodensignaturen zu aendern.
-    """
-
-    collected = []
-
     def __init__(self, name):
         self.name = name
+        self.collected = []
 
     def add(self, event):
         self.collected.append(event)
 
     def total(self):
-        return len(EventCollector.collected)
+        return len(self.collected)
 
 
 class Base:
-    """Basisklasse, die Name und Event-Log initialisiert."""
-
     def __init__(self, name: str):
         self.name = name
         self.events: list = []
@@ -94,17 +61,8 @@ class Base:
 
 
 class LoggingWorker(Base):
-    """Worker, der Events protokolliert und eine Zusammenfassung ausgibt.
-
-    BUG: __init__ ueberschreibt Base.__init__, ruft aber super().__init__()
-    NIE auf - self.name und self.events werden dadurch nie gesetzt. Der
-    erste Aufruf von log() oder summary() wirft AttributeError.
-
-    Finde und behebe den Bug (siehe README, Stolperstein 2), ohne die
-    Methodensignaturen zu aendern.
-    """
-
     def __init__(self, name: str, worker_id: int):
+        super().__init__(name)
         self.worker_id = worker_id
 
     def summary(self) -> str:
@@ -116,31 +74,28 @@ class LoggingWorker(Base):
 # ---------------------------------------------------------------------------
 
 class BaseETL:
-    """Basisklasse fuer ETL-Pipelines (Template-Method-Pattern).
+    def __init__(self, source_name: str):
+        self.source_name = source_name
+        self._processed_count = 0
+        self._rejected: list[dict] = []
 
-    TODO:
-      - __init__(self, source_name: str): setze self.source_name = source_name
-        (das ruft bereits den Setter unten auf), initialisiere
-        self._processed_count = 0 und eine INSTANZEIGENE leere Liste
-        self._rejected (nicht als Klassenattribut!).
-      - source_name: @property-Getter gibt self._source_name zurueck.
-        @source_name.setter wirft ValueError, wenn der Wert leer oder nur
-        Whitespace ist, sonst setzt er self._source_name.
-      - processed_count: @property (nur Getter), gibt self._processed_count
-        zurueck.
-      - rejected: @property (nur Getter), gibt eine KOPIE von
-        self._rejected zurueck (z.B. list(self._rejected)) - niemals die
-        Original-Liste direkt, sonst koennte man sie von aussen mutieren.
-      - run(self) -> list[dict]: ruft self.extract(), dann
-        self.transform(records), dann self.load(transformed) auf,
-        aktualisiert self._processed_count auf len(transformed) und gibt
-        transformed zurueck.
-      - __repr__(self) -> str: z.B.
-        "BaseETL(source_name='orders', processed=3)" - nutze
-        self.__class__.__name__ statt "BaseETL" fest zu verdrahten, damit
-        Unterklassen den richtigen Namen zeigen.
-      - __str__(self) -> str: z.B. "ETL[orders]: 3 Datensaetze verarbeitet".
-    """
+    @property
+    def source_name(self) -> str:
+        return self._source_name
+
+    @source_name.setter
+    def source_name(self, value: str) -> None:
+        if not value or not value.strip():
+            raise ValueError("source_name must not be blank")
+        self._source_name = value
+
+    @property
+    def processed_count(self) -> int:
+        return self._processed_count
+
+    @property
+    def rejected(self) -> list[dict]:
+        return list(self._rejected)
 
     def extract(self) -> list[dict]:
         raise NotImplementedError("Subklassen muessen extract() implementieren")
@@ -151,35 +106,39 @@ class BaseETL:
     def load(self, records: list[dict]) -> None:
         raise NotImplementedError("Subklassen muessen load() implementieren")
 
+    def run(self) -> list[dict]:
+        records = self.extract()
+        transformed = self.transform(records)
+        self.load(transformed)
+        self._processed_count = len(transformed)
+        return transformed
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(source_name={self._source_name!r}, processed={self._processed_count})"
+
+    def __str__(self) -> str:
+        return f"ETL[{self._source_name}]: {self._processed_count} Datensaetze verarbeitet"
+
 
 class InMemoryUserETL(BaseETL):
-    """Konkrete ETL-Pipeline fuer eine In-Memory-Liste roher User-Records.
-
-    TODO:
-      - __init__(self, source_name: str, raw_users: list[dict]): ruft
-        super().__init__(source_name) auf, speichert eine KOPIE von
-        raw_users in self._raw_users (nicht die Original-Liste
-        uebernehmen!), initialisiert self.loaded_users = [].
-      - extract(self) -> list[dict]: gibt eine Kopie von self._raw_users
-        zurueck.
-      - transform(self, records: list[dict]) -> list[dict]: records ohne
-        "@" in "email" sind ungueltig. Haenge fuer jeden ungueltigen Record
-        eine Kopie des Records, ergaenzt um "_reason": "invalid email", an
-        self._rejected an (direkter Zugriff auf das geerbte, mit
-        Unterstrich gekennzeichnete Attribut - rejected selbst ist
-        read-only). Gib nur die gueltigen Records zurueck.
-      - load(self, records: list[dict]) -> None: haengt records an
-        self.loaded_users an.
-    """
-
     def __init__(self, source_name: str, raw_users: list[dict]):
-        raise NotImplementedError
+        super().__init__(source_name)
+        self._raw_users = list(raw_users)
+        self.loaded_users: list[dict] = []
 
     def extract(self) -> list[dict]:
-        raise NotImplementedError
+        return list(self._raw_users)
 
     def transform(self, records: list[dict]) -> list[dict]:
-        raise NotImplementedError
+        valid = []
+        for record in records:
+            if "@" in record.get("email", ""):
+                valid.append(record)
+            else:
+                bad = record.copy()
+                bad["_reason"] = "invalid email"
+                self._rejected.append(bad)
+        return valid
 
     def load(self, records: list[dict]) -> None:
-        raise NotImplementedError
+        self.loaded_users.extend(records)

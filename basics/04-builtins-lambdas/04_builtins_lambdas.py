@@ -1,8 +1,7 @@
-"""Einheit 4: Built-in Functions & Lambdas - Uebungsaufgaben.
+"""Einheit 4: Built-in Functions & Lambdas - Loesungen.
 
-Fuelle die TODO-Abschnitte aus. Fuehre
-`pytest basics/04-builtins-lambdas/ -v` aus, um dein Ergebnis zu pruefen.
-Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
+Dies ist der 'solutions'-Branch: alle Uebungen sind bereits geloest.
+Die Original-Uebungsdatei (mit TODOs/Bugs) findest du im 'main'-Branch.
 """
 
 from __future__ import annotations
@@ -13,22 +12,14 @@ from __future__ import annotations
 # ---------------------------------------------------------------------------
 
 def fahrenheit_values(celsius_temps: list) -> list:
-    """Wandelt Celsius-Werte in Fahrenheit um: F = C * 9/5 + 32.
-
-    Nutze map() mit einer lambda-Funktion. Gib das Ergebnis als Liste
-    zurueck (list(map(...))).
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    return list(map(lambda c: c * 9 / 5 + 32, celsius_temps))
 
 
 def paired_report(cities: list, temperatures: list) -> list:
-    """Baut einen Report als Liste von Strings, z.B. ["Berlin: 10°C", ...].
-
-    Nutze zip(cities, temperatures) statt einer Index-Schleife.
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    report = []
+    for city, temp in zip(cities, temperatures):
+        report.append(f"{city}: {temp}°C")
+    return report
 
 
 # ---------------------------------------------------------------------------
@@ -36,26 +27,11 @@ def paired_report(cities: list, temperatures: list) -> list:
 # ---------------------------------------------------------------------------
 
 def sorted_by_length(words: list) -> list:
-    """Gibt `words` sortiert nach Wortlaenge (aufsteigend) zurueck.
-
-    BUG: sorted() akzeptiert `key` nur als KEYWORD-Argument, nicht
-    positional - dieser Aufruf wirft eine TypeError. Finde und behebe den
-    Bug (siehe README, Code-Anatomie Stolperstein 2), ohne die
-    Funktionssignatur zu aendern.
-    """
-    return sorted(words, lambda w: len(w))
+    return sorted(words, key=lambda w: len(w))
 
 
 def doubled_values(numbers: list) -> list:
-    """Verdoppelt jeden Wert in `numbers`.
-
-    BUG: map() gibt in Python 3 einen ITERATOR zurueck, keine Liste - die
-    Funktion gibt aktuell das map-Objekt direkt zurueck statt der
-    tatsaechlichen Werte (siehe README, Code-Anatomie Stolperstein 1).
-
-    Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
-    """
-    return map(lambda n: n * 2, numbers)
+    return list(map(lambda n: n * 2, numbers))
 
 
 # ---------------------------------------------------------------------------
@@ -63,30 +39,18 @@ def doubled_values(numbers: list) -> list:
 # ---------------------------------------------------------------------------
 
 def warm_cities_report(cities: list, temperatures: list) -> list:
-    """Nummerierter Report der Staedte mit Temperatur > 10°C, waermste zuerst.
+    if len(cities) != len(temperatures):
+        raise ValueError("cities and temperatures must have the same length")
 
-    Schritte:
-      1. cities und temperatures mit zip() zu (stadt, temperatur)-Paaren
-         kombinieren.
-      2. Mit filter() + lambda nur Paare mit temperatur > 10 behalten.
-      3. Mit sorted() + lambda (key=..., reverse=True) nach Temperatur
-         ABSTEIGEND sortieren.
-      4. Mit enumerate(..., start=1) nummerierte Strings im Format
-         f"{nummer}. {stadt}: {temperatur}°C" bauen.
+    pairs = zip(cities, temperatures)
+    warm_pairs = filter(lambda pair: pair[1] > 10, pairs)
+    sorted_pairs = sorted(warm_pairs, key=lambda pair: pair[1], reverse=True)
 
-    Wirf ValueError, wenn cities und temperatures unterschiedlich lang
-    sind.
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    report = []
+    for i, (city, temp) in enumerate(sorted_pairs, start=1):
+        report.append(f"{i}. {city}: {temp}°C")
+    return report
 
 
 def cities_sorted_by_name_length(cities: list) -> list:
-    """Dedupliziert `cities` und sortiert sie nach Namenslaenge, bei
-    gleicher Laenge alphabetisch.
-
-    Nutze set(...) zum Deduplizieren und sorted() mit einer lambda, die
-    ein Tupel (laenge, name) als Sortierschluessel zurueckgibt.
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    return sorted(set(cities), key=lambda name: (len(name), name))

@@ -1,8 +1,7 @@
-"""Einheit 1: Listen & Schleifen - Uebungsaufgaben.
+"""Einheit 1: Listen & Schleifen - Loesungen.
 
-Fuelle die TODO-Abschnitte aus. Fuehre
-`pytest basics/01-listen-schleifen/ -v` aus, um dein Ergebnis zu pruefen.
-Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
+Dies ist der 'solutions'-Branch: alle Uebungen sind bereits geloest.
+Die Original-Uebungsdatei (mit TODOs/Bugs) findest du im 'main'-Branch.
 """
 
 from __future__ import annotations
@@ -13,23 +12,17 @@ from __future__ import annotations
 # ---------------------------------------------------------------------------
 
 def sum_of_list(numbers: list) -> float:
-    """Summe aller Zahlen in `numbers`.
-
-    Nutze eine for-Schleife und eine Akkumulator-Variable (z.B. total = 0),
-    die bei jedem Durchlauf erhoeht wird. Nutze NICHT die eingebaute
-    Funktion sum() - das ist Thema von Einheit 4.
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    total = 0
+    for number in numbers:
+        total += number
+    return total
 
 
 def contains_value(items: list, target) -> bool:
-    """True, wenn `target` irgendwo in `items` vorkommt, sonst False.
-
-    Nutze eine for-Schleife (noch nicht den in-Operator).
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    for item in items:
+        if item == target:
+            return True
+    return False
 
 
 # ---------------------------------------------------------------------------
@@ -37,39 +30,17 @@ def contains_value(items: list, target) -> bool:
 # ---------------------------------------------------------------------------
 
 def increase_temperatures(temperatures: list) -> list:
-    """Erhoeht jede Temperatur in `temperatures` um 5 und gibt die
-    VERAENDERTE Liste zurueck.
-
-    BUG: Die Schleifenvariable `temperature` wird zwar erhoeht, aber das
-    aendert nichts an der Original-Liste `temperatures` - `temperature`
-    ist bei jedem Durchlauf nur eine lokale Kopie des Wertes, keine
-    Referenz zurueck in die Liste (siehe README).
-
-    Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
-    """
-    for temperature in temperatures:
-        temperature += 5
+    for i in range(len(temperatures)):
+        temperatures[i] = temperatures[i] + 5
     return temperatures
 
 
 def drop_short_names(names: list) -> list:
-    """Gibt eine NEUE Liste zurueck, die nur Namen mit mindestens 3 Zeichen
-    enthaelt.
-
-    BUG: Der Code entfernt Elemente aus `names`, WAEHREND er ueber genau
-    diese Liste iteriert (`names.remove(...)` innerhalb von
-    `for name in names:`). Das verschiebt die Indizes mitten im Durchlauf
-    und fuehrt dazu, dass manche kurzen Namen uebersprungen werden (nie
-    geprueft werden) und faelschlich in der Liste bleiben.
-
-    Finde und behebe den Bug, ohne die Funktionssignatur zu aendern. Baue
-    dafuer eine NEUE Ergebnisliste auf, statt die Eingabeliste waehrend
-    des Durchlaufs zu veraendern.
-    """
+    kept = []
     for name in names:
-        if len(name) < 3:
-            names.remove(name)
-    return names
+        if len(name) >= 3:
+            kept.append(name)
+    return kept
 
 
 # ---------------------------------------------------------------------------
@@ -77,31 +48,23 @@ def drop_short_names(names: list) -> list:
 # ---------------------------------------------------------------------------
 
 def temperature_report(cities: list, temperatures: list) -> list:
-    """Baut einen Report als Liste von Strings, z.B. ["Berlin: 10°C", ...].
-
-    `cities` und `temperatures` sind zwei PARALLELE Listen gleicher Laenge
-    (cities[i] gehoert zu temperatures[i]). Durchlaufe beide gemeinsam
-    ueber den Index (for i in range(len(cities))) und baue pro Index einen
-    String im Format f"{stadt}: {temperatur}°C".
-
-    Wirf ValueError, wenn cities und temperatures unterschiedlich lang
-    sind.
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    if len(cities) != len(temperatures):
+        raise ValueError("cities and temperatures must have the same length")
+    report = []
+    for i in range(len(cities)):
+        report.append(f"{cities[i]}: {temperatures[i]}°C")
+    return report
 
 
 def cities_above_average(cities: list, temperatures: list) -> list:
-    """Gibt die Namen der Staedte zurueck, deren Temperatur UEBER dem
-    Durchschnitt aller Temperaturen liegt.
-
-    Berechne den Durchschnitt SELBST mit einer Schleife und einer
-    Akkumulator-Variable (wie in sum_of_list) - nutze noch nicht sum()
-    (das ist Thema von Einheit 4). `cities` und `temperatures` sind
-    parallele Listen gleicher Laenge.
-
-    Wirf ValueError, wenn die Listen leer sind oder unterschiedlich lang
-    sind (ein Durchschnitt waere sonst nicht definiert).
-    """
-    # TODO: implementieren
-    raise NotImplementedError
+    if len(cities) != len(temperatures) or len(cities) == 0:
+        raise ValueError("cities and temperatures must be non-empty and the same length")
+    total = 0
+    for temp in temperatures:
+        total += temp
+    average = total / len(temperatures)
+    result = []
+    for i in range(len(cities)):
+        if temperatures[i] > average:
+            result.append(cities[i])
+    return result
