@@ -24,31 +24,32 @@ brauchst, wenn kein High-Level-Framework zur Verfügung steht (z. B. in
 Lambda-Funktionen, Streaming-Konsumenten oder beim Debuggen von
 Pandas-Code, dessen Fehler letztlich auf diesen Grundlagen beruhen).
 
-## Aufbau: Grundlagen (Tag 1–4)
+## Aufbau: `basics/` (Tag 1–4)
 
 | Tag | Thema | Praxisfokus | Status |
 |---|---|---|---|
-| [1](00-tag1-listen-schleifen/README.md) | Rückblick: Listen & Schleifen | Homogene/heterogene Listen, Schleifenkopf/-körper, Schleifenvariable ≠ Referenz | ✅ |
-| [2](00-tag2-datenstrukturen-bedingungen/README.md) | Weitere Datenstrukturen & If-Statements | Tupel, Sets, `if/elif/else`, Truthiness | ✅ |
-| [3](00-tag3-funktionen/README.md) | Funktionen | `def`, Default-Parameter, `return` vs. `print`, Scope | ✅ |
-| [4](00-tag4-builtins-lambdas/README.md) | Built-in Functions & Lambdas | `zip`, `enumerate`, `sorted`, `map`/`filter`, `lambda` | ✅ |
+| [1](basics/00-tag1-listen-schleifen/README.md) | Rückblick: Listen & Schleifen | Homogene/heterogene Listen, Schleifenkopf/-körper, Schleifenvariable ≠ Referenz | ✅ |
+| [2](basics/00-tag2-datenstrukturen-bedingungen/README.md) | Weitere Datenstrukturen & If-Statements | Tupel, Sets, `if/elif/else`, Truthiness | ✅ |
+| [3](basics/00-tag3-funktionen/README.md) | Funktionen | `def`, Default-Parameter, `return` vs. `print`, Scope | ✅ |
+| [4](basics/00-tag4-builtins-lambdas/README.md) | Built-in Functions & Lambdas | `zip`, `enumerate`, `sorted`, `map`/`filter`, `lambda` | ✅ |
 
 Tag 1 greift direkt auf, was im Coaching an diesem Tag passiert ist (siehe
-[`practice/temperature-converter.py`](practice/temperature-converter.py)) –
-Tag 2–4 führen folgerichtig weiter zu den Werkzeugen, die Modul 1–5
-voraussetzen.
+[`basics/practice/temperature-converter.py`](basics/practice/temperature-converter.py))
+– Tag 2–4 führen folgerichtig weiter zu den Werkzeugen, die
+`data-engineering-preparedness/` voraussetzt.
 
-## Aufbau: Module 1–5 (Data Engineering Preparedness)
+## Aufbau: `data-engineering-preparedness/` (Modul 1–5)
 
 | Modul | Thema | Praxisfokus | Status |
 |---|---|---|---|
-| [01](01-datenstrukturen-manipulation/README.md) | Datenstrukturen & Daten-Manipulation | Dicts, Listen von Dicts, Comprehensions, fehlende/ungültige Keys abfangen | ✅ |
-| [02](02-oop-pipelines/README.md) | OOP für Pipelines | Klassen, Dunder-Methoden, `@property`, Vererbung (`BaseETL` → `CustomETL`) | ✅ |
-| [03](03-error-handling-validierung/README.md) | Robustes Error Handling & Validierung | `try/except/else/finally`, eigene Exceptions, "Rejected Rows" | ✅ |
-| [04](04-datei-io-streams/README.md) | Datei-I/O & Streams | `csv`, `pathlib.Path`, `DictReader`/`DictWriter`, UTF-8 | ✅ |
-| [05](05-inkrementelle-logik-state/README.md) | Inkrementelle Logik & State Management | CDC-Events, `last_processed_id`/Offsets | ✅ |
+| [01](data-engineering-preparedness/01-datenstrukturen-manipulation/README.md) | Datenstrukturen & Daten-Manipulation | Dicts, Listen von Dicts, Comprehensions, fehlende/ungültige Keys abfangen | ✅ |
+| [02](data-engineering-preparedness/02-oop-pipelines/README.md) | OOP für Pipelines | Klassen, Dunder-Methoden, `@property`, Vererbung (`BaseETL` → `CustomETL`) | ✅ |
+| [03](data-engineering-preparedness/03-error-handling-validierung/README.md) | Robustes Error Handling & Validierung | `try/except/else/finally`, eigene Exceptions, "Rejected Rows" | ✅ |
+| [04](data-engineering-preparedness/04-datei-io-streams/README.md) | Datei-I/O & Streams | `csv`, `pathlib.Path`, `DictReader`/`DictWriter`, UTF-8 | ✅ |
+| [05](data-engineering-preparedness/05-inkrementelle-logik-state/README.md) | Inkrementelle Logik & State Management | CDC-Events, `last_processed_id`/Offsets | ✅ |
 
-Jedes Verzeichnis (Tag 1–4 ebenso wie Modul 1–5) enthält:
+Jedes Unterverzeichnis (in `basics/` ebenso wie in
+`data-engineering-preparedness/`) enthält:
 
 - `README.md` – Erklärung der Konzepte (das *Warum*), Code-Beispiele und
   eine "Code-Anatomie"-Sektion zu typischen Stolpersteinen.
@@ -65,8 +66,12 @@ Jedes Verzeichnis (Tag 1–4 ebenso wie Modul 1–5) enthält:
 pip install -r requirements.txt
 
 # Tests für eine einzelne Einheit laufen lassen
-pytest 00-tag1-listen-schleifen/ -v
-pytest 01-datenstrukturen-manipulation/ -v
+pytest basics/00-tag1-listen-schleifen/ -v
+pytest data-engineering-preparedness/01-datenstrukturen-manipulation/ -v
+
+# Nur einen der beiden Bloecke laufen lassen
+pytest basics/ -v
+pytest data-engineering-preparedness/ -v
 
 # Alles auf einmal
 pytest -v
