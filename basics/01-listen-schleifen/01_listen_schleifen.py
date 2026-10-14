@@ -12,15 +12,21 @@ from __future__ import annotations
 # Level 1 (Basic)
 # ---------------------------------------------------------------------------
 
+
 def sum_of_list(numbers: list) -> float:
     """Summe aller Zahlen in `numbers`.
 
     Nutze eine for-Schleife und eine Akkumulator-Variable (z.B. total = 0),
-    die bei jedem Durchlauf erhoeht wird. Nutze NICHT die eingebaute
+    die bei jedem/jeder Durchlauf/Iteration erhoeht wird. Nutze NICHT die eingebaute
     Funktion sum() - das ist Thema von Einheit 4.
     """
-    # TODO: implementieren
-    raise NotImplementedError
+
+    total = 0
+
+    for number in numbers:
+        total += number  # total = total + number
+
+    return total
 
 
 def contains_value(items: list, target) -> bool:
@@ -28,13 +34,17 @@ def contains_value(items: list, target) -> bool:
 
     Nutze eine for-Schleife (noch nicht den in-Operator).
     """
-    # TODO: implementieren
-    raise NotImplementedError
+    for item in items:
+        if item == target:
+            return True
+
+    return False
 
 
 # ---------------------------------------------------------------------------
 # Level 2 (Refactoring / Debugging)
 # ---------------------------------------------------------------------------
+
 
 def increase_temperatures(temperatures: list) -> list:
     """Erhoeht jede Temperatur in `temperatures` um 5 und gibt die
@@ -47,8 +57,20 @@ def increase_temperatures(temperatures: list) -> list:
 
     Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
     """
-    for temperature in temperatures:
-        temperature += 5
+
+    # Problem: Diese Schleife erstellt nur eine Kopie der Inhalte
+    # for temperature in temperatures:
+    #     temperature += 5
+    # return temperatures
+
+    # Idee: Direkte Bearbeitung der einzelnen Indizes
+    for i, temperature in enumerate(temperatures):
+        temperatures[i] += 5
+
+    # Alternative: Index wird über die Größe der Liste hergeleitet
+    # for i in range(len(temperatures)):
+    #     temperatures[i] += 5
+
     return temperatures
 
 
@@ -75,6 +97,7 @@ def drop_short_names(names: list) -> list:
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
+
 
 def temperature_report(cities: list, temperatures: list) -> list:
     """Baut einen Report als Liste von Strings, z.B. ["Berlin: 10°C", ...].
