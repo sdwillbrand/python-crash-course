@@ -6,6 +6,7 @@ Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
 """
 
 from __future__ import annotations
+from tkinter.font import names
 
 
 # ---------------------------------------------------------------------------
@@ -88,11 +89,15 @@ def drop_short_names(names: list) -> list:
     dafuer eine NEUE Ergebnisliste auf, statt die Eingabeliste waehrend
     des Durchlaufs zu veraendern.
     """
-    for name in names:
-        if len(name) < 3:
-            names.remove(name)
-    return names
-
+    # for name in names:
+    #     if len(name) < 3:
+    #         names.remove(name)
+    # return names
+    filtered_names = []
+    for name in    names:
+        if len(name) >= 3:
+            filtered_names.append(name)
+    return filtered_names
 
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
