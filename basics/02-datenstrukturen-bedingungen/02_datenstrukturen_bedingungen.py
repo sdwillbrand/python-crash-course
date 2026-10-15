@@ -12,27 +12,40 @@ from __future__ import annotations
 # Level 1 (Basic)
 # ---------------------------------------------------------------------------
 
+
 def unique_values(items: list) -> set:
     """Wandelt `items` in ein Set ohne Duplikate um.
 
     Nutze set(...) oder eine Schleife mit .add().
+
+    numbers = set()
+    numbers.add(1)
     """
-    # TODO: implementieren
-    raise NotImplementedError
+    # result = set()
+    # for item in items:
+    #     result.add(item)
+    # return result
+    return set(items)
 
 
 def classify_number(n: float) -> str:
     """Gibt "positiv", "negativ" oder "null" zurueck, je nach Vorzeichen von n.
 
     Nutze if/elif/else.
+
     """
-    # TODO: implementieren
-    raise NotImplementedError
+    if n > 0:
+        return "positiv"
+    elif n < 0:
+        return "negativ"
+    else:
+        return "null"
 
 
 # ---------------------------------------------------------------------------
 # Level 2 (Refactoring / Debugging)
 # ---------------------------------------------------------------------------
+
 
 def classify_temperatures(temperatures: list) -> dict:
     """Teilt Temperaturen in drei Kategorien ein:
@@ -82,6 +95,7 @@ def unique_preserve_first_seen(items: list) -> list:
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
+
 
 def group_cities_by_temperature(cities: list, temperatures: list) -> dict:
     """Kombiniert (stadt, temperatur)-Tupel zu drei Kategorien.

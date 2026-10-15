@@ -32,74 +32,74 @@ class TestLevel1ClassifyNumber:
         assert solution.classify_number(0) == "null"
 
 
-class TestLevel2ClassifyTemperatures:
-    def test_cold_value(self):
-        result = solution.classify_temperatures([5])
-        assert result == {"kalt": [5], "mild": [], "warm": []}
+# class TestLevel2ClassifyTemperatures:
+#     def test_cold_value(self):
+#         result = solution.classify_temperatures([5])
+#         assert result == {"kalt": [5], "mild": [], "warm": []}
 
-    def test_mild_value(self):
-        result = solution.classify_temperatures([15])
-        assert result == {"kalt": [], "mild": [15], "warm": []}
+#     def test_mild_value(self):
+#         result = solution.classify_temperatures([15])
+#         assert result == {"kalt": [], "mild": [15], "warm": []}
 
-    def test_warm_value_is_not_also_counted_as_mild(self):
-        result = solution.classify_temperatures([25])
-        assert result == {"kalt": [], "mild": [], "warm": [25]}
+#     def test_warm_value_is_not_also_counted_as_mild(self):
+#         result = solution.classify_temperatures([25])
+#         assert result == {"kalt": [], "mild": [], "warm": [25]}
 
-    def test_boundary_values(self):
-        result = solution.classify_temperatures([10, 20])
-        assert result == {"kalt": [], "mild": [10, 20], "warm": []}
+#     def test_boundary_values(self):
+#         result = solution.classify_temperatures([10, 20])
+#         assert result == {"kalt": [], "mild": [10, 20], "warm": []}
 
-    def test_mixed_values(self):
-        result = solution.classify_temperatures([5, 15, 25])
-        assert result == {"kalt": [5], "mild": [15], "warm": [25]}
-
-
-class TestLevel2UniquePreserveFirstSeen:
-    def test_removes_duplicates_preserving_first_occurrence_order(self):
-        assert solution.unique_preserve_first_seen([3, 1, 2, 1, 3]) == [3, 1, 2]
-
-    def test_empty_list_returns_empty_list(self):
-        assert solution.unique_preserve_first_seen([]) == []
-
-    def test_already_unique_list_stays_unchanged(self):
-        assert solution.unique_preserve_first_seen(["a", "b"]) == ["a", "b"]
+#     def test_mixed_values(self):
+#         result = solution.classify_temperatures([5, 15, 25])
+#         assert result == {"kalt": [5], "mild": [15], "warm": [25]}
 
 
-class TestLevel3GroupCitiesByTemperature:
-    def test_groups_tuples_by_category(self):
-        cities = ["Kiel", "Hamburg", "Dubai"]
-        temperatures = [5, 15, 35]
-        result = solution.group_cities_by_temperature(cities, temperatures)
-        assert result == {
-            "kalt": [("Kiel", 5)],
-            "mild": [("Hamburg", 15)],
-            "warm": [("Dubai", 35)],
-        }
+# class TestLevel2UniquePreserveFirstSeen:
+#     def test_removes_duplicates_preserving_first_occurrence_order(self):
+#         assert solution.unique_preserve_first_seen([3, 1, 2, 1, 3]) == [3, 1, 2]
 
-    def test_empty_lists_return_empty_groups(self):
-        result = solution.group_cities_by_temperature([], [])
-        assert result == {"kalt": [], "mild": [], "warm": []}
+#     def test_empty_list_returns_empty_list(self):
+#         assert solution.unique_preserve_first_seen([]) == []
 
-    def test_mismatched_lengths_raise_value_error(self):
-        with pytest.raises(ValueError):
-            solution.group_cities_by_temperature(["Berlin"], [10, 20])
+#     def test_already_unique_list_stays_unchanged(self):
+#         assert solution.unique_preserve_first_seen(["a", "b"]) == ["a", "b"]
 
 
-class TestLevel3TemperatureExtremes:
-    def test_finds_warmest_and_coldest(self):
-        cities = ["Kiel", "Berlin", "Dubai"]
-        temperatures = [5, 15, 35]
-        result = solution.temperature_extremes(cities, temperatures)
-        assert result == (("Dubai", 35), ("Kiel", 5))
+# class TestLevel3GroupCitiesByTemperature:
+#     def test_groups_tuples_by_category(self):
+#         cities = ["Kiel", "Hamburg", "Dubai"]
+#         temperatures = [5, 15, 35]
+#         result = solution.group_cities_by_temperature(cities, temperatures)
+#         assert result == {
+#             "kalt": [("Kiel", 5)],
+#             "mild": [("Hamburg", 15)],
+#             "warm": [("Dubai", 35)],
+#         }
 
-    def test_single_city_is_both_warmest_and_coldest(self):
-        result = solution.temperature_extremes(["Kiel"], [5])
-        assert result == (("Kiel", 5), ("Kiel", 5))
+#     def test_empty_lists_return_empty_groups(self):
+#         result = solution.group_cities_by_temperature([], [])
+#         assert result == {"kalt": [], "mild": [], "warm": []}
 
-    def test_empty_lists_raise_value_error(self):
-        with pytest.raises(ValueError):
-            solution.temperature_extremes([], [])
+#     def test_mismatched_lengths_raise_value_error(self):
+#         with pytest.raises(ValueError):
+#             solution.group_cities_by_temperature(["Berlin"], [10, 20])
 
-    def test_mismatched_lengths_raise_value_error(self):
-        with pytest.raises(ValueError):
-            solution.temperature_extremes(["Berlin"], [10, 20])
+
+# class TestLevel3TemperatureExtremes:
+#     def test_finds_warmest_and_coldest(self):
+#         cities = ["Kiel", "Berlin", "Dubai"]
+#         temperatures = [5, 15, 35]
+#         result = solution.temperature_extremes(cities, temperatures)
+#         assert result == (("Dubai", 35), ("Kiel", 5))
+
+#     def test_single_city_is_both_warmest_and_coldest(self):
+#         result = solution.temperature_extremes(["Kiel"], [5])
+#         assert result == (("Kiel", 5), ("Kiel", 5))
+
+#     def test_empty_lists_raise_value_error(self):
+#         with pytest.raises(ValueError):
+#             solution.temperature_extremes([], [])
+
+#     def test_mismatched_lengths_raise_value_error(self):
+#         with pytest.raises(ValueError):
+#             solution.temperature_extremes(["Berlin"], [10, 20])

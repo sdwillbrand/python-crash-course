@@ -88,10 +88,13 @@ def drop_short_names(names: list) -> list:
     dafuer eine NEUE Ergebnisliste auf, statt die Eingabeliste waehrend
     des Durchlaufs zu veraendern.
     """
+    result = []
     for name in names:
-        if len(name) < 3:
-            names.remove(name)
-    return names
+        # Die Invariante/Bedingung wird invertiert
+        if len(name) >= 3:
+            # names.remove(name)
+            result.append(name)
+    return result
 
 
 # ---------------------------------------------------------------------------
