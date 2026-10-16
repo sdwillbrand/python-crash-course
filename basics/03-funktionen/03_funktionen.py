@@ -12,21 +12,21 @@ from __future__ import annotations
 # Level 1 (Basic)
 # ---------------------------------------------------------------------------
 
+
 def greet(name: str, greeting: str = "Hallo") -> str:
     """Gibt f"{greeting}, {name}!" zurueck (Default: greeting="Hallo")."""
-    # TODO: implementieren
-    raise NotImplementedError
+    return f"{greeting}, {name}!"
 
 
 def add_and_double(a: float, b: float) -> float:
     """Gibt (a + b) * 2 zurueck."""
-    # TODO: implementieren
-    raise NotImplementedError
+    return (a + b) * 2
 
 
 # ---------------------------------------------------------------------------
 # Level 2 (Refactoring / Debugging)
 # ---------------------------------------------------------------------------
+
 
 def add_tag(record: dict, tags=[]):
     """Fuegt "processed" zu tags hinzu und speichert tags unter record["tags"].
@@ -67,6 +67,7 @@ def mark_processed(count: int) -> int:
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
+
 
 def running_total(amounts: list, start_balance: float = 0) -> list:
     """Baut eine Liste laufender Summen, beginnend bei start_balance.

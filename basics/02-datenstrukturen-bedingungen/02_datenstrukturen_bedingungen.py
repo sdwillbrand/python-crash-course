@@ -65,9 +65,9 @@ def classify_temperatures(temperatures: list) -> dict:
     for temp in temperatures:
         if temp < 10:
             result["kalt"].append(temp)
-        if temp >= 10:
+        elif temp <= 20:
             result["mild"].append(temp)
-        if temp > 20:
+        elif temp > 20:
             result["warm"].append(temp)
     return result
 
@@ -83,7 +83,7 @@ def unique_preserve_first_seen(items: list) -> list:
 
     Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
     """
-    seen = {}
+    seen = set()
     result = []
     for item in items:
         if item not in seen:
