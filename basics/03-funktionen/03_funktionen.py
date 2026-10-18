@@ -12,33 +12,54 @@ from __future__ import annotations
 # Level 1 (Basic)
 # ---------------------------------------------------------------------------
 
-def greet(name: str, greeting: str = "Hallo") -> str:
-    """Gibt f"{greeting}, {name}!" zurueck (Default: greeting="Hallo")."""
-    # TODO: implementieren
-    raise NotImplementedError
+# def greet(name: str, greeting: str = "Hallo") -> str:
+#     """Gibt f"{greeting}, {name}!" zurueck (Default: greeting="Hallo")."""
+#     # TODO: implementieren
+#     raise NotImplementedError
 
+def greet(name: str, greeting: str = "Hallo") -> str:
+    return f"{greeting}, {name}!"
+
+
+# def add_and_double(a: float, b: float) -> float:
+#     """Gibt (a + b) * 2 zurueck."""
+#     # TODO: implementieren
+#     raise NotImplementedError
 
 def add_and_double(a: float, b: float) -> float:
     """Gibt (a + b) * 2 zurueck."""
-    # TODO: implementieren
-    raise NotImplementedError
+    return (a + b) * 2
 
 
 # ---------------------------------------------------------------------------
 # Level 2 (Refactoring / Debugging)
 # ---------------------------------------------------------------------------
 
-def add_tag(record: dict, tags=[]):
-    """Fuegt "processed" zu tags hinzu und speichert tags unter record["tags"].
+# def add_tag(record: dict, tags=[]):
+#     """Fuegt "processed" zu tags hinzu und speichert tags unter record["tags"].
 
-    BUG: Mutable Default Argument - tags=[] wird nur EINMAL beim
-    Definieren der Funktion erzeugt und bei jedem Aufruf ohne tags-Argument
-    wiederverwendet. Dadurch waechst die Liste ueber mehrere Aufrufe
-    hinweg, obwohl jeder Aufruf eine frische, leere Liste erwartet.
+#     BUG: Mutable Default Argument - tags=[] wird nur EINMAL beim
+#     Definieren der Funktion erzeugt und bei jedem Aufruf ohne tags-Argument
+#     wiederverwendet. Dadurch waechst die Liste ueber mehrere Aufrufe
+#     hinweg, obwohl jeder Aufruf eine frische, leere Liste erwartet.
 
-    Finde und behebe den Bug (siehe README), ohne das Verhalten bei
-    explizit uebergebenem `tags` zu aendern.
-    """
+#     Finde und behebe den Bug (siehe README), ohne das Verhalten bei
+#     explizit uebergebenem `tags` zu aendern.
+#     """
+#     tags.append("processed")
+#     record["tags"] = tags
+#     return record
+
+
+# total_processed = 0
+
+def add_tag(record: dict, tags: list[str] | None = None) -> dict:
+    # If the user did not pass a list, create a new empty list now
+    # Wenn der Benutzer keine Liste uebergibt, erstelle jetzt eine neue leere Liste
+    # إذا لم يمرر المستخدم قائمة، أنشئ له قائمة جديدة وفارغة الآن
+    if tags is None:
+        tags = []
+    
     tags.append("processed")
     record["tags"] = tags
     return record
@@ -47,19 +68,28 @@ def add_tag(record: dict, tags=[]):
 total_processed = 0
 
 
+# def mark_processed(count: int) -> int:
+#     """Erhoeht die globale Variable total_processed um `count` und gibt
+#     den NEUEN Gesamtwert zurueck.
+
+#     BUG: `total_processed += count` wird IRGENDWO in der Funktion
+#     zugewiesen - dadurch behandelt Python `total_processed` fuer die
+#     GESAMTE Funktion als lokale Variable, auch in der Zeile, in der sie
+#     zuerst gelesen wird. Das wirft UnboundLocalError (siehe README,
+#     Stolperstein 3).
+
+#     Finde und behebe den Bug mit dem `global`-Schluesselwort, ohne die
+#     Funktionssignatur zu aendern.
+#     """
+#     total_processed += count
+#     return total_processed
+
 def mark_processed(count: int) -> int:
-    """Erhoeht die globale Variable total_processed um `count` und gibt
-    den NEUEN Gesamtwert zurueck.
-
-    BUG: `total_processed += count` wird IRGENDWO in der Funktion
-    zugewiesen - dadurch behandelt Python `total_processed` fuer die
-    GESAMTE Funktion als lokale Variable, auch in der Zeile, in der sie
-    zuerst gelesen wird. Das wirft UnboundLocalError (siehe README,
-    Stolperstein 3).
-
-    Finde und behebe den Bug mit dem `global`-Schluesselwort, ohne die
-    Funktionssignatur zu aendern.
-    """
+    # Inform Python to modify the global variable defined outside, not a local one
+    # Python mitteilen, die externe globale Variable zu aendern, keine lokale
+    # إخبار بايثون بتعديل المتغير العام الخارجي وليس متغيراً محلياً
+    global total_processed
+    
     total_processed += count
     return total_processed
 
