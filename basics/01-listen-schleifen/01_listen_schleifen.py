@@ -113,8 +113,31 @@ def temperature_report(cities: list, temperatures: list) -> list:
     Wirf ValueError, wenn cities und temperatures unterschiedlich lang
     sind.
     """
-    # TODO: implementieren
-    raise NotImplementedError
+
+    # Naive Ansatz
+    # result = []
+    # for i in range(len(cities)):
+    #     city = cities[i]
+    #     temperature = temperatures[i]
+    #     result.append(f"{city}: {temperature}°C")
+
+    # Pythonic Ansatz: Ziel Code eleganter und schlanker zu gestalten
+    """
+    ["Berlin", "München", "Stuttgart"]
+    [5000000, 1800000, 8]
+    zip(["Berlin", "München", "Stuttgart"], [5000000, 1800000, 8])
+    0 => ("Berlin", 5000000)
+    1 => ("München", 1800000)
+    2 => ("Stuttgart", 8)
+    
+    => [("Berlin", 5000000), ("München", 1800000), ("Stuttgart", 8)]
+
+    """
+    result = []
+    for city, temperature in zip(cities, temperatures):
+        result.append(f"{city}: {temperature}°C")
+
+    return result
 
 
 def cities_above_average(cities: list, temperatures: list) -> list:
