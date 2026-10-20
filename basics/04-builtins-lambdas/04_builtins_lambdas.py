@@ -3,6 +3,8 @@
 Fuelle die TODO-Abschnitte aus. Fuehre
 `pytest basics/04-builtins-lambdas/ -v` aus, um dein Ergebnis zu pruefen.
 Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
+
+Hausaufgaben vom 20.10.2026
 """
 
 from __future__ import annotations
@@ -11,6 +13,7 @@ from __future__ import annotations
 # ---------------------------------------------------------------------------
 # Level 1 (Basic)
 # ---------------------------------------------------------------------------
+
 
 def fahrenheit_values(celsius_temps: list) -> list:
     """Wandelt Celsius-Werte in Fahrenheit um: F = C * 9/5 + 32.
@@ -34,6 +37,7 @@ def paired_report(cities: list, temperatures: list) -> list:
 # ---------------------------------------------------------------------------
 # Level 2 (Refactoring / Debugging)
 # ---------------------------------------------------------------------------
+
 
 def sorted_by_length(words: list) -> list:
     """Gibt `words` sortiert nach Wortlaenge (aufsteigend) zurueck.
@@ -61,6 +65,7 @@ def doubled_values(numbers: list) -> list:
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
+
 
 def warm_cities_report(cities: list, temperatures: list) -> list:
     """Nummerierter Report der Staedte mit Temperatur > 10°C, waermste zuerst.
