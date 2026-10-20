@@ -22,8 +22,8 @@ def fahrenheit_values(celsius_temps: list) -> list:
     zurueck (list(map(...))).
     """
     # TODO: implementieren
-    raise NotImplementedError
-
+    # raise NotImplementedError
+    return list(map(lambda c: c * 9 / 5 + 32, celsius_temps))
 
 def paired_report(cities: list, temperatures: list) -> list:
     """Baut einen Report als Liste von Strings, z.B. ["Berlin: 10°C", ...].
@@ -31,7 +31,8 @@ def paired_report(cities: list, temperatures: list) -> list:
     Nutze zip(cities, temperatures) statt einer Index-Schleife.
     """
     # TODO: implementieren
-    raise NotImplementedError
+    # raise NotImplementedError
+    return [f"{city}: {temp}°C" for city, temp in zip(cities, temperatures)]
 
 
 # ---------------------------------------------------------------------------

@@ -6,6 +6,7 @@ Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
 """
 
 from __future__ import annotations
+from tkinter.font import names
 
 
 # ---------------------------------------------------------------------------
@@ -88,14 +89,15 @@ def drop_short_names(names: list) -> list:
     dafuer eine NEUE Ergebnisliste auf, statt die Eingabeliste waehrend
     des Durchlaufs zu veraendern.
     """
-    result = []
-    for name in names:
-        # Die Invariante/Bedingung wird invertiert
+    # for name in names:
+    #     if len(name) < 3:
+    #         names.remove(name)
+    # return names
+    filtered_names = []
+    for name in    names:
         if len(name) >= 3:
-            # names.remove(name)
-            result.append(name)
-    return result
-
+            filtered_names.append(name)
+    return filtered_names
 
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
@@ -113,31 +115,8 @@ def temperature_report(cities: list, temperatures: list) -> list:
     Wirf ValueError, wenn cities und temperatures unterschiedlich lang
     sind.
     """
-
-    # Naive Ansatz
-    # result = []
-    # for i in range(len(cities)):
-    #     city = cities[i]
-    #     temperature = temperatures[i]
-    #     result.append(f"{city}: {temperature}°C")
-
-    # Pythonic Ansatz: Ziel Code eleganter und schlanker zu gestalten
-    """
-    ["Berlin", "München", "Stuttgart"]
-    [5000000, 1800000, 8]
-    zip(["Berlin", "München", "Stuttgart"], [5000000, 1800000, 8])
-    0 => ("Berlin", 5000000)
-    1 => ("München", 1800000)
-    2 => ("Stuttgart", 8)
-    
-    => [("Berlin", 5000000), ("München", 1800000), ("Stuttgart", 8)]
-
-    """
-    result = []
-    for city, temperature in zip(cities, temperatures):
-        result.append(f"{city}: {temperature}°C")
-
-    return result
+    # TODO: implementieren
+    raise NotImplementedError
 
 
 def cities_above_average(cities: list, temperatures: list) -> list:
