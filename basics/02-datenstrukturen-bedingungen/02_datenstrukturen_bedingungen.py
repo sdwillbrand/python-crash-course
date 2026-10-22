@@ -111,8 +111,12 @@ def group_cities_by_temperature(cities: list, temperatures: list) -> dict:
 
     Wirf ValueError, wenn cities und temperatures unterschiedlich lang sind.
     """
-    # TODO: implementieren
-    raise NotImplementedError
+    if len(cities) != len(temperatures):
+        raise ValueError
+    categ = {"kalt": [], "mild": [], "warm": []}
+    for city, temp in zip(cities, temperatures):
+        if temp < 10:
+            categ["kalt"].append((city, temp))
 
 
 def temperature_extremes(cities: list, temperatures: list) -> tuple:

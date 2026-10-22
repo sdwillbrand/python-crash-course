@@ -76,21 +76,21 @@ class TestLevel3TemperatureReport:
             solution.temperature_report(["Berlin"], [10, 12])
 
 
-# class TestLevel3CitiesAboveAverage:
-#     def test_returns_only_cities_strictly_above_average(self):
-#         cities = ["Kiel", "Berlin", "Dubai"]
-#         temperatures = [5, 15, 25]
-#         assert solution.cities_above_average(cities, temperatures) == ["Dubai"]
+class TestLevel3CitiesAboveAverage:
+    def test_returns_only_cities_strictly_above_average(self):
+        cities = ["Kiel", "Berlin", "Dubai"]
+        temperatures = [5, 15, 25]
+        assert solution.cities_above_average(cities, temperatures) == ["Dubai"]
 
-#     def test_city_exactly_at_average_is_not_included(self):
-#         cities = ["Kiel", "Dubai"]
-#         temperatures = [10, 20]
-#         assert solution.cities_above_average(cities, temperatures) == ["Dubai"]
+    def test_city_exactly_at_average_is_not_included(self):
+        cities = ["Kiel", "Dubai"]
+        temperatures = [10, 20]
+        assert solution.cities_above_average(cities, temperatures) == ["Dubai"]
 
-#     def test_empty_lists_raise_value_error(self):
-#         with pytest.raises(ValueError):
-#             solution.cities_above_average([], [])
+    def test_empty_lists_raise_value_error(self):
+        with pytest.raises(ValueError):
+            solution.cities_above_average([], [])
 
-#     def test_mismatched_lengths_raise_value_error(self):
-#         with pytest.raises(ValueError):
-#             solution.cities_above_average(["Berlin"], [10, 20])
+    def test_mismatched_lengths_raise_value_error(self):
+        with pytest.raises(ValueError):
+            solution.cities_above_average(["Berlin"], [10, 20])

@@ -133,6 +133,10 @@ def temperature_report(cities: list, temperatures: list) -> list:
     => [("Berlin", 5000000), ("München", 1800000), ("Stuttgart", 8)]
 
     """
+
+    if len(cities) != len(temperatures):
+        raise ValueError
+
     result = []
     for city, temperature in zip(cities, temperatures):
         result.append(f"{city}: {temperature}°C")
@@ -152,5 +156,16 @@ def cities_above_average(cities: list, temperatures: list) -> list:
     Wirf ValueError, wenn die Listen leer sind oder unterschiedlich lang
     sind (ein Durchschnitt waere sonst nicht definiert).
     """
-    # TODO: implementieren
-    raise NotImplementedError
+
+    if len(cities) != len(temperatures) or len(cities) == 0 or len(temperatures) == 0:
+        raise ValueError
+
+    total_temperature = 0
+    for t in temperatures:
+        total_temperature += t
+    average_t = total_temperature / len(temperatures)
+    above_average = []
+    for i in range(len(cities)):
+        if temperatures[i] > average_t:
+            above_average.append(cities[i])
+    return above_average
