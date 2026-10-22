@@ -82,6 +82,7 @@ def unique_preserve_first_seen(items: list) -> list:
     Code-Anatomie Stolperstein 1.
 
     Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
+    21.10.2026
     """
     seen = set()
     result = []
