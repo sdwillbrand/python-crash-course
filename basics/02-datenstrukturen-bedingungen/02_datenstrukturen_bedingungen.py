@@ -119,6 +119,12 @@ def group_cities_by_temperature(cities: list, temperatures: list) -> dict:
     for city, temp in zip(cities, temperatures):
         if temp < 10:
             categ["kalt"].append((city, temp))
+        elif temp <= 20:
+            categ["mild"].append((city, temp))
+        else:
+            categ["warm"].append((city, temp))
+
+    return categ
 
 
 def temperature_extremes(cities: list, temperatures: list) -> tuple:
