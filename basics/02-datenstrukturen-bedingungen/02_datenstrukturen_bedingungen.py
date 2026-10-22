@@ -82,7 +82,6 @@ def unique_preserve_first_seen(items: list) -> list:
     Code-Anatomie Stolperstein 1.
 
     Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
-    21.10.2026
     """
     seen = set()
     result = []
@@ -111,6 +110,8 @@ def group_cities_by_temperature(cities: list, temperatures: list) -> dict:
     Gibt zurueck: {"kalt": [(stadt, temp), ...], "mild": [...], "warm": [...]}
 
     Wirf ValueError, wenn cities und temperatures unterschiedlich lang sind.
+
+    Aufgabe am 21.10.2026
     """
     if len(cities) != len(temperatures):
         raise ValueError
