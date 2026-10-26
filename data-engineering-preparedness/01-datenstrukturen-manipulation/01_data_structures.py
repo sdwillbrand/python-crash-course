@@ -3,6 +3,8 @@
 Fuelle die TODO-Abschnitte aus. Fuehre
 `pytest 01-datenstrukturen-manipulation/ -v` aus, um dein Ergebnis zu pruefen.
 Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
+
+26.10.2026
 """
 
 from __future__ import annotations
@@ -12,6 +14,7 @@ from __future__ import annotations
 # Level 1 (Basic)
 # ---------------------------------------------------------------------------
 
+
 def extract_emails(users: list[dict]) -> list[str]:
     """Gib eine Liste aller 'email'-Werte aus einer Liste von User-Dicts zurueck.
 
@@ -19,8 +22,7 @@ def extract_emails(users: list[dict]) -> list[str]:
         extract_emails([{"name": "Ana", "email": "ana@x.de"}])
         -> ["ana@x.de"]
     """
-    # TODO: Nutze eine List Comprehension.
-    raise NotImplementedError
+    return [user.get("email", "") for user in users]
 
 
 def safe_get_age(user: dict) -> int:
@@ -35,6 +37,7 @@ def safe_get_age(user: dict) -> int:
 # ---------------------------------------------------------------------------
 # Level 2 (Refactoring / Debugging)
 # ---------------------------------------------------------------------------
+
 
 def active_user_names(users: list[dict]) -> list[str]:
     """Gib die Namen aller User mit status == "active" zurueck.
