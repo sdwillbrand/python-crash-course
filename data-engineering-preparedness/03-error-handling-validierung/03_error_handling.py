@@ -3,6 +3,8 @@
 Fuelle die TODO-Abschnitte aus. Fuehre
 `pytest 03-error-handling-validierung/ -v` aus, um dein Ergebnis zu pruefen.
 Erklaerungen und Code-Beispiele: siehe README.md in diesem Ordner.
+
+27.10.2026
 """
 
 from __future__ import annotations
@@ -14,6 +16,7 @@ import math
 # Level 1 (Basic)
 # ---------------------------------------------------------------------------
 
+
 def is_valid_number(value) -> bool:
     """True nur fuer endliche int/float-Werte, sonst False.
 
@@ -21,12 +24,24 @@ def is_valid_number(value) -> bool:
     eine Unterklasse von int - das ist hier in Ordnung), NaN, +/- inf,
     Strings, Listen, etc.
 
+    Wir müssen behandeln, ob der Wert
+    - Unendlich
+    - Ungültige Zahl (NaN = Not a Number)
+    - Strings, Listen, etc
+
     Nutze isinstance() UND math.isfinite(). Rufe math.isfinite() nicht mit
     einem Wert auf, der kein int/float ist (das wuerde TypeError werfen) -
     pruefe den Typ zuerst.
+
+    Lösung:
+    Betrachte alles als Eigenschaft:
+    (value ist int oder value ist float) UND (endlich)
+
+    Reihenfolge ist wichtig.
+
     """
-    # TODO: implementieren
-    raise NotImplementedError
+
+    return isinstance(value, (int, float)) and math.isfinite(value)
 
 
 def safe_convert_to_float(value, stats: dict) -> float | None:
@@ -41,13 +56,19 @@ def safe_convert_to_float(value, stats: dict) -> float | None:
         zusaetzlich "errors" um 1 erhoeht und None zurueckgegeben.
       - Bei Erfolg wird der konvertierte float-Wert zurueckgegeben.
     """
-    # TODO: implementieren (try/except/finally)
-    raise NotImplementedError
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        stats["errors"] += 1
+        return None
+    finally:
+        stats["attempts"] += 1
 
 
 # ---------------------------------------------------------------------------
 # Level 2 (Refactoring / Debugging)
 # ---------------------------------------------------------------------------
+
 
 def parse_price(value):
     """Konvertiert value zu einem gueltigen Preis (float) oder gibt None zurueck.
@@ -97,6 +118,7 @@ def safe_divide(a: float, b: float) -> float | None:
 # ---------------------------------------------------------------------------
 # Level 3 (Mini-Projekt)
 # ---------------------------------------------------------------------------
+
 
 class PipelineError(Exception):
     """Basis-Exception fuer alle Validierungsfehler dieser Pipeline."""

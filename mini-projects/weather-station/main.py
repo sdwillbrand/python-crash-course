@@ -37,6 +37,11 @@ def validate_line(line: str):
     # Wir können den Text in eine Zahl konvertieren
     temperature = float(fields[1])
 
+    try:
+        temperature = float(fields[1])
+    except ValueError:
+        return "Temperatur ist keine Zahl."
+
     # 5 Prüfung
     if temperature < -60 or temperature > 60:
         return "Temperatur unrealistisch"

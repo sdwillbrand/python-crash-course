@@ -22,7 +22,9 @@ def extract_emails(users: list[dict]) -> list[str]:
         extract_emails([{"name": "Ana", "email": "ana@x.de"}])
         -> ["ana@x.de"]
     """
-    return [user.get("email", "") for user in users]
+    return [
+        user.get("email", "") for user in users if user.get("email", "").endswith(".de")
+    ]
 
 
 def safe_get_age(user: dict) -> int:
@@ -30,8 +32,7 @@ def safe_get_age(user: dict) -> int:
 
     Nutze KEIN try/except - das ist Thema von Modul 3.
     """
-    # TODO: Nutze dict.get() mit einem Default-Wert.
-    raise NotImplementedError
+    return user.get("age", 0)
 
 
 # ---------------------------------------------------------------------------
@@ -51,8 +52,8 @@ def active_user_names(users: list[dict]) -> list[str]:
     """
     result = []
     for user in users:
-        if user["status"] == "active":
-            user["checked"] = True
+        if user.get("status") == "active":
+            # user["checked"] = True
             result.append(user["name"])
     return result
 
@@ -65,7 +66,7 @@ def id_to_name_lookup(users: list[dict]) -> dict:
 
     Finde und behebe den Bug, ohne die Funktionssignatur zu aendern.
     """
-    return {user["id"]: user["id"] for user in users}
+    return {user["id"]: user["name"] for user in users}
 
 
 # ---------------------------------------------------------------------------
