@@ -1,0 +1,21 @@
+id,name,description,quantity,price
+1,Kugelschreiber,"Blauer Kugelschreiber, nachfüllbar",250,1.49
+2,Notizbuch A5,Liniertes Notizbuch mit 120 Seiten,80,4.99
+3,USB-Stick 64GB,USB 3.0 Speicherstick,45,12.90
+4,Kabellose Maus,Ergonomische Funkmaus mit USB-Empfänger,30,19.99
+5,Tastatur,"Mechanische Tastatur, deutsches Layout",15,79.00
+6,Monitor 27 Zoll,"4K-Monitor mit HDMI und DisplayPort",8,329.00
+7,Laptop-Ständer,Höhenverstellbarer Ständer aus Aluminium,22,34.50
+8,Schreibtischlampe,LED-Lampe mit dimmbarem Licht,18,27.95
+9,Headset,Over-Ear-Headset mit Mikrofon,25,49.99
+10,Webcam,Full-HD-Webcam mit Autofokus,12,59.90
+11,Druckerpapier,"500 Blatt, A4, 80 g/m²",100,5.49
+12,Textmarker-Set,"4 Farben: gelb, grün, pink, orange",60,3.99
+13,Hefter,Heftgerät für bis zu 25 Blatt,35,8.75
+14,Ordner,"Breiter Ordner, 8 cm Rückenbreite",120,2.89
+15,Externe Festplatte 1TB,Tragbare Festplatte mit USB-C,10,64.99
+16,Mauspad,Rutschfestes Mauspad aus Stoff,75,6.50
+17,Ladekabel USB-C,"2 Meter, Schnellladefunktion",90,9.99
+18,Bürostuhl,Ergonomischer Stuhl mit Lordosenstütze,5,199.00
+19,Whiteboard,Magnetisches Whiteboard 90x60 cm,7,44.90
+20,Haftnotizen,"12 Blöcke, je 100 Blatt",150,7.29
