@@ -15,8 +15,52 @@ def get_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+
 def create_table():
-    
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS housings (
+                id TEXT PRIMARY KEY,
+                area TEXT,
+                sqm FLOAT,
+                bedrooms INTEGER,
+                bathrooms INTEGER,
+                age_years INTEGER,
+                parking BOOLEAN,
+                floor INTEGER,
+                price_eur FLOAT
+            )
+        """)
+        conn.commit()
+
+
+def insert_data(housings):
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        housings = [
+            (
+                housing["id"],
+                housing["area"],
+                housing["sqm"],
+                housing["bedrooms"],
+                housing["bathrooms"],
+                housing["age_years"],
+                housing["parking"],
+                housing["floor"],
+                housing["price_eur"],
+            )
+            for housing in housings
+        ]
+        cursor.executemany(
+            """
+            INSERT INTO housings (id, area, sqm, bedrooms, bathrooms, age_years, parking, floor, price_eur)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            housings,
+        )
+        conn.commit()
+
 
 # Extract
 def load_data(filepath="housing.csv"):
@@ -63,7 +107,7 @@ def inr_to_eur(inr):
 
 # Load/Report
 def main():
-
+    create_table()
     raw_housings = load_data()
     transformed_housings = transform_data(raw_housings)
 
@@ -74,6 +118,7 @@ def main():
     print(f"Average housing price: {average_housing_price}€")
 
     # Die transformierten Daten werden dann in einer Datenbank gespeichert
+    insert_data(transformed_housings)
 
 
 main()
