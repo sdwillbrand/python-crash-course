@@ -4,7 +4,19 @@
 
 
 import csv
+import sqlite3
 
+
+DB_NAME = "housing.db"
+
+
+def get_connection():
+    conn = sqlite3.connect(DB_NAME)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def create_table():
+    
 
 # Extract
 def load_data(filepath="housing.csv"):
@@ -51,6 +63,7 @@ def inr_to_eur(inr):
 
 # Load/Report
 def main():
+
     raw_housings = load_data()
     transformed_housings = transform_data(raw_housings)
 
@@ -59,6 +72,8 @@ def main():
     prices = [housing["price_eur"] for housing in transformed_housings]
     average_housing_price = sum(prices) / len(prices)
     print(f"Average housing price: {average_housing_price}€")
+
+    # Die transformierten Daten werden dann in einer Datenbank gespeichert
 
 
 main()
